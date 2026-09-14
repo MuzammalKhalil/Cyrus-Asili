@@ -2,11 +2,11 @@ body.exact-design-mode {
   background: #f4f4f4;
 }
 
-/* Header and footer are now dynamic global components displayed on all pages */
-body.exact-design-mode .site-header,
-body.exact-design-mode footer {
+/* Universal dynamic header & footer components displayed on all pages */
+body.exact-design-mode .site-header {
   display: block;
 }
+
 
 
 body.exact-design-mode #main-content {
@@ -26,6 +26,7 @@ body.exact-design-mode #main-content {
   max-width: 1920px;
   margin: 0 auto;
   background: #f4f4f4;
+  overflow: hidden;
 }
 
 .exact-page-image {
@@ -33,14 +34,11 @@ body.exact-design-mode #main-content {
   width: 100%;
   height: auto;
   user-select: none;
+  margin-top: -7.9167%; /* 152px / 1920px: clips baked-in header from screenshot */
 }
 
 .exact-hotspot {
-  position: absolute;
-  z-index: 2;
-  display: block;
-  border-radius: 2px;
-  background: transparent;
+  display: none; /* Replaced by universal dynamic header component */
 }
 
 .exact-hotspot:focus-visible {

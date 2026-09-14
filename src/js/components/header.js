@@ -55,6 +55,8 @@ export function renderHeader(mountSelector = '#header-root') {
               </ul>
             </li>
 
+            <li><a href="#" data-route="gallery" class="nav-link">Gallery</a></li>
+            <li><a href="#" data-route="news" class="nav-link">News &amp; Blogs</a></li>
             <li><a href="#" data-route="contact" class="nav-link">Contact</a></li>
           </ul>
         </nav>
@@ -84,6 +86,36 @@ export function renderHeader(mountSelector = '#header-root') {
   `;
 
   mountEl.innerHTML = headerHtml;
+
+  mountEl.querySelectorAll('.dropdown').forEach(dropdown => {
+    const toggle = dropdown.querySelector('.dropdown-trigger');
+    const menu = dropdown.querySelector('.dropdown-menu');
+
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      const isOpen = dropdown.classList.contains('is-open');
+
+      document.querySelectorAll('.dropdown').forEach(item => {
+        item.classList.remove('is-open');
+      });
+
+      if (!isOpen) {
+        dropdown.classList.add('is-open');
+      }
+    });
+
+    dropdown.addEventListener('mouseleave', () => {
+      dropdown.classList.remove('is-open');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!dropdown.contains(event.target)) {
+        dropdown.classList.remove('is-open');
+      }
+    });
+  });
 }
 
 export function updateActiveHeaderRoute(currentRoute = 'home') {

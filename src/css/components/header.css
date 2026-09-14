@@ -40,11 +40,12 @@
 }
 
 .nav-link {
-  font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-family: var(--font-body);
+  font-size: 0.96rem;
   font-weight: 500;
   color: var(--text-primary);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   position: relative;
   padding: 0.5rem 0;
   text-decoration: none;
@@ -120,10 +121,18 @@
   color: #fff;
 }
 
-.dropdown:hover .dropdown-menu {
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu,
+.dropdown.is-open .dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(0);
+}
+
+.dropdown:hover .dropdown-trigger,
+.dropdown:focus-within .dropdown-trigger,
+.dropdown.is-open .dropdown-trigger {
+  color: #fff;
 }
 
 .dropdown-item a {

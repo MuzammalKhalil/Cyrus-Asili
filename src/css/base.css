@@ -25,6 +25,64 @@ body {
   background-image: 
     radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
     radial-gradient(circle at 85% 65%, rgba(18, 24, 36, 0.8) 0%, transparent 50%);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+p,
+li,
+span,
+div,
+label,
+input,
+textarea,
+select,
+button,
+a {
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.8rem, 4.8vw, 6rem);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: clamp(2.15rem, 3vw, 3.5rem);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: clamp(1.4rem, 2vw, 2.15rem);
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.7;
+  font-weight: 400;
 }
 
 a {
@@ -67,12 +125,12 @@ input:focus, select:focus, textarea:focus {
 
 .section-title {
   font-family: var(--font-heading);
-  font-size: 2.25rem;
+  font-size: clamp(2.2rem, 3vw, 3.8rem);
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.02em;
   margin-bottom: 0.75rem;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .section-subtitle {
@@ -80,6 +138,8 @@ input:focus, select:focus, textarea:focus {
   color: var(--text-secondary);
   max-width: 680px;
   margin-bottom: 2.5rem;
+  line-height: 1.7;
+  font-weight: 400;
 }
 
 .text-gold {
