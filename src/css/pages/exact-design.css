@@ -1,0 +1,103 @@
+body.exact-design-mode {
+  background: #f4f4f4;
+}
+
+body.exact-design-mode .site-header,
+body.exact-design-mode > footer {
+  display: none;
+}
+
+body.exact-design-mode #main-content {
+  min-height: 100vh;
+  background: #f4f4f4;
+}
+
+.exact-page {
+  width: 100%;
+  overflow-x: hidden;
+  background: #f4f4f4;
+}
+
+.exact-page-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  background: #f4f4f4;
+}
+
+.exact-page-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+
+.exact-hotspot {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  border-radius: 2px;
+  background: transparent;
+}
+
+.exact-hotspot:focus-visible {
+  outline: 2px solid rgba(212, 175, 55, 0.9);
+  outline-offset: 2px;
+}
+
+.hotspot-logo {
+  left: 3.8%;
+  top: 0.72%;
+  width: 11.2%;
+  height: 1.42%;
+}
+
+.hotspot-about {
+  left: 33.4%;
+  top: 0.82%;
+  width: 5.2%;
+  height: 1.1%;
+}
+
+.hotspot-listings {
+  left: 41.6%;
+  top: 0.82%;
+  width: 7.3%;
+  height: 1.1%;
+}
+
+.hotspot-services {
+  left: 51.2%;
+  top: 0.82%;
+  width: 8%;
+  height: 1.1%;
+}
+
+.hotspot-contact {
+  left: 61.2%;
+  top: 0.82%;
+  width: 6.2%;
+  height: 1.1%;
+}
+
+.hotspot-search {
+  left: 74.5%;
+  top: 0.82%;
+  width: 2.8%;
+  height: 1.1%;
+}
+
+.hotspot-book {
+  left: 79.4%;
+  top: 0.54%;
+  width: 16.4%;
+  height: 1.65%;
+}
+
+@media (max-width: 720px) {
+  .exact-page-stage {
+    min-width: 720px;
+    transform: translateX(calc((100vw - 720px) / 2));
+  }
+}
