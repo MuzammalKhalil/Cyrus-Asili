@@ -15,70 +15,66 @@ export function renderHeader(mountSelector = '#header-root') {
 
   const headerHtml = `
     <header class="site-header" id="main-site-header">
-      <div class="container header-container">
+      <div class="header-container">
         <!-- Brand Logo -->
         <a href="#" data-route="home" class="logo-brand">
-          <img id="site-logo" src="/assets/ASILI_Holding_Long_Logo_WHT_with_BLK_BG_1-2003_190.png" alt="ASILI Holding Ltd." class="logo-img" />
+          <img id="site-logo" src="/assets/ASILI_Holding_Long_Logo_WHT_Hollow_1-2003_1620.png" alt="ASILI Holding Ltd." class="logo-img" />
         </a>
 
         <!-- Main Navigation Menu -->
-        <nav>
+        <nav class="site-nav">
           <ul class="nav-menu">
             <li><a href="#" data-route="about" class="nav-link">About</a></li>
 
             <!-- Listings Dropdown -->
             <li class="dropdown">
               <a href="#" data-route="listings" class="nav-link dropdown-trigger">
-                Listings <span class="dropdown-arrow">˅</span>
+                Listings <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
               <ul class="dropdown-menu">
-                <li class="dropdown-item"><a href="#" data-route="listings">All Properties</a></li>
-                <li class="dropdown-item"><a href="#" data-route="listings" data-country="uk">🇬🇧 United Kingdom</a></li>
-                <li class="dropdown-item"><a href="#" data-route="listings" data-country="uae">🇦🇪 United Arab Emirates</a></li>
-                <li class="dropdown-item"><a href="#" data-route="listings" data-country="greece">🇬🇷 Greece</a></li>
-                <li class="dropdown-item"><a href="#" data-route="listings" data-country="cyprus">🇨🇾 Cyprus</a></li>
-                <li class="dropdown-item"><a href="#" data-route="listings" data-country="turkey">🇹🇷 Turkey</a></li>
+                <li class="dropdown-item"><a href="#" data-route="listings">All Listings</a></li>
+                <li class="dropdown-item"><a href="#" data-route="listings" data-country="uk">United Kingdom</a></li>
+                <li class="dropdown-item"><a href="#" data-route="listings" data-country="uae">UAE</a></li>
+                <li class="dropdown-item"><a href="#" data-route="listings" data-country="greece">Greece</a></li>
+                <li class="dropdown-item"><a href="#" data-route="listings" data-country="cyprus">Cyprus</a></li>
+                <li class="dropdown-item"><a href="#" data-route="listings" data-country="turkey">Turkey</a></li>
               </ul>
             </li>
 
             <!-- Services Dropdown -->
             <li class="dropdown">
               <a href="#" data-route="services" class="nav-link dropdown-trigger">
-                Services <span class="dropdown-arrow">˅</span>
+                Services <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
               <ul class="dropdown-menu">
-                <li class="dropdown-item"><a href="#" data-route="services" data-country="uk">🇬🇧 UK Advisory &amp; Legal</a></li>
-                <li class="dropdown-item"><a href="#" data-route="services" data-country="uae">🇦🇪 UAE Golden Visa &amp; Off-Plan</a></li>
-                <li class="dropdown-item"><a href="#" data-route="services" data-country="greece">🇬🇷 Greece Permanent Residence</a></li>
-                <li class="dropdown-item"><a href="#" data-route="services" data-country="cyprus">🇨🇾 Cyprus Beachfront Investment</a></li>
-                <li class="dropdown-item"><a href="#" data-route="services" data-country="turkey">🇹🇷 Turkey Citizenship Pathway</a></li>
+                <li class="dropdown-item"><a href="#" data-route="services" data-country="uk">Invest in the UK</a></li>
+                <li class="dropdown-item"><a href="#" data-route="services" data-country="uae">Invest in the UAE</a></li>
+                <li class="dropdown-item"><a href="#" data-route="services" data-country="greece">Invest in Greece</a></li>
+                <li class="dropdown-item"><a href="#" data-route="services" data-country="cyprus">Invest in Cyprus</a></li>
+                <li class="dropdown-item"><a href="#" data-route="services" data-country="turkey">Invest in Turkey</a></li>
               </ul>
             </li>
 
-            <li><a href="#" data-route="gallery" class="nav-link">Gallery</a></li>
-            <li><a href="#" data-route="news" class="nav-link">News &amp; Blogs</a></li>
             <li><a href="#" data-route="contact" class="nav-link">Contact</a></li>
           </ul>
         </nav>
 
-        <!-- Header Actions: Search, Theme Toggle, Consultation CTA -->
+        <!-- Header Actions: Search & Consultation CTA -->
         <div class="header-actions">
           <!-- Search Button -->
-          <button class="header-action-btn search-btn" title="Search Properties" onclick="window.toggleQuickSearch()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <button class="header-search-btn" title="Search Properties" onclick="window.toggleQuickSearch()">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
           </button>
 
-          <!-- Theme Toggle Button -->
-          <button class="header-action-btn theme-toggle-btn" title="Toggle Theme (Light / Dark)" onclick="window.toggleTheme()">
-            <span id="theme-toggle-icon">🌙</span>
-          </button>
-
           <!-- Book Consultation CTA Button -->
           <button class="btn-figma-consultation" onclick="window.openBookingModal()">
-            Book A Consultation <span class="btn-diamond">⋄</span>
+            <span>Book A Consultation</span>
+            <svg class="btn-circle-svg" width="9" height="9" viewBox="0 0 10 10" fill="none">
+              <circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.3"/>
+            </svg>
           </button>
         </div>
       </div>

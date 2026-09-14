@@ -1,124 +1,119 @@
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 100;
-  background: var(--bg-nav);
+  z-index: 1000;
+  background: linear-gradient(180deg, rgba(61, 70, 75, 0.94) 0%, rgba(46, 54, 58, 0.96) 100%);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border-light);
-  padding: 1.1rem 0;
-  transition: var(--transition-smooth);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.05rem 0;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 4%;
 }
 
 .logo-brand {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
   text-decoration: none;
 }
 
 .logo-img {
-  height: 40px;
+  height: 38px;
   width: auto;
   object-fit: contain;
-  transition: filter var(--transition-fast);
+  display: block;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
 }
 
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 2.75rem;
+  gap: 2.6rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .nav-link {
-  font-family: var(--font-body);
-  font-size: 0.96rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #FFFFFF;
+  letter-spacing: 0.01em;
+  text-transform: none;
   position: relative;
-  padding: 0.5rem 0;
+  padding: 0.4rem 0;
   text-decoration: none;
-  transition: color var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color var(--transition-fast, 0.2s ease);
 }
 
-.nav-link:hover, .nav-link.active {
-  color: var(--primary-gold);
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary-gold, #D4AF37);
 }
 
-.dropdown-arrow {
-  font-size: 0.75rem;
-  margin-left: 0.2rem;
-  opacity: 0.8;
-  display: inline-block;
-  transform: translateY(-1px);
+.dropdown-chevron {
+  width: 9px;
+  height: 6px;
+  transition: transform var(--transition-fast, 0.2s ease);
+  opacity: 0.85;
 }
 
-/* Dropdown Menu */
+/* Dropdown Menu - Sleek Figma Dark Dropdown */
 .dropdown {
   position: relative;
 }
 
 .dropdown-trigger {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
   cursor: pointer;
+  background: transparent !important;
+  margin: 0 !important;
 }
 
 .dropdown-menu {
   position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(12px);
-  min-width: 240px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-card);
-  padding: 0.6rem 0;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 220px;
+  background: #15171b;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 2px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+  padding: 0.5rem 0;
+  list-style: none;
+  margin: 0;
   opacity: 0;
   visibility: hidden;
-  transition: var(--transition-fast);
-  list-style: none;
-  z-index: 105;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  z-index: 1005;
 }
 
-/* Figma-style dark navigation flyout */
-.dropdown:hover .dropdown-trigger,
-.dropdown-trigger.active {
-  background: rgba(255, 255, 255, 0.14);
-  color: #fff;
-  padding: 0.75rem 0.9rem;
-  margin: -0.75rem -0.9rem;
-}
-
-.dropdown-menu {
-  background: #1d1d1b;
-  border: 0;
-  border-radius: 0;
-  min-width: 220px;
-  padding: 0.75rem 0;
-}
-
-.dropdown-item a {
-  color: rgba(255, 255, 255, 0.76);
-  padding: 0.75rem 1.4rem;
-}
-
-.dropdown-item a:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
+/* Bridge element so mouse does not leave hover area */
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: transparent;
 }
 
 .dropdown:hover .dropdown-menu,
@@ -126,98 +121,96 @@
 .dropdown.is-open .dropdown-menu {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
 
-.dropdown:hover .dropdown-trigger,
-.dropdown:focus-within .dropdown-trigger,
-.dropdown.is-open .dropdown-trigger {
-  color: #fff;
+.dropdown:hover .dropdown-chevron,
+.dropdown.is-open .dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+.dropdown-item {
+  list-style: none;
 }
 
 .dropdown-item a {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
+  display: block;
+  padding: 0.65rem 1.4rem;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.82);
   text-decoration: none;
-  transition: background var(--transition-fast), color var(--transition-fast);
+  text-transform: none;
+  letter-spacing: 0.01em;
+  transition: background 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
 }
 
 .dropdown-item a:hover {
-  background: var(--gold-glow);
-  color: var(--primary-gold);
+  background: rgba(255, 255, 255, 0.06);
+  color: #FFFFFF;
+  padding-left: 1.65rem;
 }
 
 /* Header Action Buttons */
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 2.2rem;
 }
 
-.header-action-btn {
+.header-search-btn {
   background: transparent;
-  border: 1px solid var(--border-light);
-  color: var(--text-primary);
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-sm);
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: var(--transition-fast);
+  padding: 0.35rem;
+  transition: color var(--transition-fast, 0.2s ease);
 }
 
-.header-action-btn:hover {
-  border-color: var(--border-gold);
-  color: var(--primary-gold);
-  background: var(--gold-glow);
+.header-search-btn:hover {
+  color: var(--primary-gold, #D4AF37);
 }
 
 /* Figma Consultation Button */
 .btn-figma-consultation {
-  background: #11151C;
+  background: #14161a;
   color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.75rem 1.6rem;
-  font-family: var(--font-heading);
-  font-size: 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0.72rem 1.65rem;
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: 0.94rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   cursor: pointer;
-  transition: var(--transition-smooth);
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   border-radius: 2px;
-}
-
-[data-theme="light"] .btn-figma-consultation {
-  background: #0F172A;
-  color: #FFFFFF;
-  border-color: #0F172A;
+  white-space: nowrap;
 }
 
 .btn-figma-consultation:hover {
-  background: var(--primary-gold);
-  color: #0A0E17;
-  border-color: var(--primary-gold);
-  box-shadow: var(--shadow-glow);
+  background: #1c1f25;
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
 }
 
-.btn-diamond {
-  font-size: 0.9rem;
-  line-height: 1;
+.btn-circle-svg {
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  opacity: 0.9;
 }
 
 .mobile-menu-btn {
   display: none;
   font-size: 1.5rem;
-  color: var(--text-primary);
+  color: #FFFFFF;
   background: none;
   border: none;
   cursor: pointer;
@@ -227,6 +220,7 @@
   .nav-menu {
     display: none;
   }
+
   .mobile-menu-btn {
     display: block;
   }

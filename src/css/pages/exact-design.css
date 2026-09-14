@@ -1,5 +1,5 @@
 body.exact-design-mode {
-  background: #f4f4f4;
+  background: #0a0c10;
 }
 
 /* Universal dynamic header & footer components displayed on all pages */
@@ -7,17 +7,15 @@ body.exact-design-mode .site-header {
   display: block;
 }
 
-
-
 body.exact-design-mode #main-content {
   min-height: 100vh;
-  background: #f4f4f4;
+  background: #0a0c10;
 }
 
 .exact-page {
   width: 100%;
   overflow-x: hidden;
-  background: #f4f4f4;
+  background: #0a0c10;
 }
 
 .exact-page-stage {
@@ -25,7 +23,7 @@ body.exact-design-mode #main-content {
   width: 100%;
   max-width: 1920px;
   margin: 0 auto;
-  background: #f4f4f4;
+  background: #0a0c10;
   overflow: hidden;
 }
 
