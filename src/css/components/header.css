@@ -93,6 +93,33 @@
   z-index: 105;
 }
 
+/* Figma-style dark navigation flyout */
+.dropdown:hover .dropdown-trigger,
+.dropdown-trigger.active {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  padding: 0.75rem 0.9rem;
+  margin: -0.75rem -0.9rem;
+}
+
+.dropdown-menu {
+  background: #1d1d1b;
+  border: 0;
+  border-radius: 0;
+  min-width: 220px;
+  padding: 0.75rem 0;
+}
+
+.dropdown-item a {
+  color: rgba(255, 255, 255, 0.76);
+  padding: 0.75rem 1.4rem;
+}
+
+.dropdown-item a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
 .dropdown:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
@@ -195,4 +222,3 @@
     display: block;
   }
 }
-
