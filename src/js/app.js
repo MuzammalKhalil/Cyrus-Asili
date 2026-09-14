@@ -19,6 +19,8 @@ import { renderServicesView } from './views/servicesView.js';
 import { renderContactView } from './views/contactView.js';
 import { renderExactPageView } from './views/exactPageView.js';
 import { renderGalleryView, renderNewsView, renderPropertyView } from './views/showcaseViews.js';
+import { renderHeader, updateActiveHeaderRoute } from './components/header.js';
+import { renderFooter } from './components/footer.js';
 import { renderBookingModal, openBookingModal } from './components/bookingModal.js';
 import { renderPropertyModal, openPropertyModal } from './components/propertyModal.js';
 
@@ -53,6 +55,49 @@ window.toggleQuickSearch = function() {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Mount Global Header & Footer Components dynamically across all pages
+  renderHeader('#header-root');
+  renderFooter('#footer-root');
+
+  // Keep the Listings menu aligned with the Figma navigation labels and order.
+  const listingsMenu = document.querySelector('.dropdown a[data-route="listings"]')?.closest('.dropdown')?.querySelector('.dropdown-menu');
+  if (listingsMenu) {
+    const listingLabels = {
+      uk: 'United Kingdom',
+      uae: 'UAE',
+      greece: 'Greece',
+      turkey: 'Turkey',
+      cyprus: 'Cyprus'
+    };
+    const allListings = listingsMenu.querySelector('a:not([data-country])');
+    if (allListings) allListings.textContent = 'All Listings';
+    Object.entries(listingLabels).forEach(([country, label]) => {
+      const link = listingsMenu.querySelector(`a[data-country="${country}"]`);
+      if (link) {
+        link.textContent = label;
+        listingsMenu.appendChild(link.closest('li'));
+      }
+    });
+  }
+
+  const servicesMenu = document.querySelector('.dropdown a[data-route="services"]')?.closest('.dropdown')?.querySelector('.dropdown-menu');
+  if (servicesMenu) {
+    const serviceLabels = {
+      uk: 'Invest in the UK',
+      uae: 'Invest in the UAE',
+      greece: 'Invest in Greece',
+      turkey: 'Invest in Turkey',
+      cyprus: 'Invest in Cyprus'
+    };
+    Object.entries(serviceLabels).forEach(([country, label]) => {
+      const link = servicesMenu.querySelector(`a[data-country="${country}"]`);
+      if (link) {
+        link.textContent = label;
+        servicesMenu.appendChild(link.closest('li'));
+      }
+    });
+  }
+
   // Mount Modals
   renderBookingModal();
   renderPropertyModal();
@@ -81,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const country = searchParams.get('country');
     const id = searchParams.get('id');
     router.navigate(route || 'home', country ? { country } : id ? { id } : {});
+    updateActiveHeaderRoute(route || 'home');
   };
 
   loadRouteFromHash();
@@ -94,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const route = link.getAttribute('data-route');
       const country = link.getAttribute('data-country');
       router.navigate(route, country ? { country } : {});
+      updateActiveHeaderRoute(route);
     }
   });
 });

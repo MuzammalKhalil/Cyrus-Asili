@@ -2,10 +2,12 @@ body.exact-design-mode {
   background: #f4f4f4;
 }
 
+/* Header and footer are now dynamic global components displayed on all pages */
 body.exact-design-mode .site-header,
-body.exact-design-mode > footer {
-  display: none;
+body.exact-design-mode footer {
+  display: block;
 }
+
 
 body.exact-design-mode #main-content {
   min-height: 100vh;
