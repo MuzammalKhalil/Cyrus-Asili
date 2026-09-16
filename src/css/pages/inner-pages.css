@@ -5,7 +5,9 @@ body:not(.exact-design-mode) {
 
 body:not(.exact-design-mode) .site-header {
   position: sticky;
-  background: rgba(62, 68, 61, 0.94);
+  background: rgba(29, 29, 27, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 

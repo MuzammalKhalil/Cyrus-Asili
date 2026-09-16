@@ -2,7 +2,7 @@ body.exact-design-mode {
   background: #0a0c10;
 }
 
-/* Universal dynamic header & footer components displayed on all pages */
+/* Universal dynamic header component displayed on all pages */
 body.exact-design-mode .site-header {
   display: block;
 }
@@ -99,3 +99,272 @@ body.exact-design-mode #main-content {
     transform: translateX(calc((100vw - 720px) / 2));
   }
 }
+
+/* Hero Banner Video Section */
+.exact-banner-hero-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 55.99%;
+  max-height: 1075px;
+  overflow: hidden;
+  z-index: 2;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 70.83% 83.72%, 0 100%);
+}
+
+.exact-banner-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.exact-banner-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 14, 20, 0.4) 0%, rgba(10, 14, 20, 0.65) 100%);
+  pointer-events: none;
+}
+
+.exact-banner-content-card {
+  position: absolute;
+  left: 14.58%;
+  top: 27.44%;
+  max-width: 760px;
+  background: rgba(15, 20, 26, 0.52);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 2.8rem 3.2rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  z-index: 3;
+}
+
+.exact-banner-tagline {
+  display: block;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(0.85rem, 1vw, 1.05rem);
+  font-weight: 500;
+  color: #D4AF37;
+  letter-spacing: 0.03em;
+  margin-bottom: 1.25rem;
+}
+
+.exact-banner-title {
+  font-family: 'Cinzel', 'Playfair Display', Georgia, sans-serif;
+  font-size: clamp(1.8rem, 2.7vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  margin: 0 0 1.25rem;
+  text-transform: uppercase;
+}
+
+.exact-banner-subtitle {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(0.9rem, 1.05vw, 1.15rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .exact-banner-content-card {
+    left: 6%;
+    top: 20%;
+    padding: 1.8rem 2rem;
+    max-width: 88%;
+  }
+}
+
+@media (max-width: 640px) {
+  .exact-banner-content-card {
+    left: 4%;
+    top: 15%;
+    padding: 1.2rem 1.4rem;
+  }
+}
+
+/* Inner Pages Hero Banner Video (About, Listings, Services, Contact) */
+.exact-banner-hero-container.exact-banner-inner {
+  height: auto;
+  aspect-ratio: 1920 / 668;
+  max-height: 668px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 70.83% 73.35%, 0 100%);
+}
+
+.exact-banner-inner-overlay {
+  background: linear-gradient(180deg, rgba(10, 14, 20, 0.45) 0%, rgba(10, 14, 20, 0.72) 100%);
+}
+
+.exact-banner-inner-content {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 920px;
+  text-align: center;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.exact-banner-inner-title {
+  font-family: 'Oswald', 'Cinzel', sans-serif;
+  font-size: clamp(2rem, 3.2vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+  line-height: 1.15;
+}
+
+.exact-banner-inner-subtitle {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(0.95rem, 1.1vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 auto;
+  max-width: 820px;
+}
+
+/* ==========================================================================
+   Interactive Search Bar & Dropdowns (Home & Listings)
+   ========================================================================== */
+.exact-home-search-section {
+  position: absolute;
+  left: 11.198%;
+  width: 77.604%;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.exact-search-section-home {
+  top: 11.845%;
+}
+
+.exact-search-section-listings {
+  top: 17.0986%;
+}
+
+.exact-search-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.85fr;
+  gap: 16px;
+  background: #FFFFFF;
+  padding: 21px 20px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.exact-search-field-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.exact-search-select,
+.exact-search-input {
+  width: 100%;
+  height: 74px;
+  background-color: #F4F4F4;
+  border: 1.5px solid transparent;
+  border-radius: 0;
+  padding: 0 20px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18px;
+  color: #999999;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.exact-search-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  padding-right: 46px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23777777' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 18px) center;
+  background-size: 16px;
+}
+
+.exact-search-select:focus,
+.exact-search-input:focus {
+  border-color: #1D1D1B;
+  background-color: #F4F4F4;
+}
+
+.exact-search-select[data-selected="true"] {
+  color: #1D1D1B;
+}
+
+.exact-search-select option {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 16px;
+  color: #1D1D1B;
+  background-color: #FFFFFF;
+}
+
+.exact-search-input::placeholder {
+  color: #999999;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+  opacity: 1;
+}
+
+.exact-search-btn {
+  width: 100%;
+  height: 74px;
+  background: #1D1D1B;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 0;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 19px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.exact-search-btn:hover {
+  background: #2D2D2B;
+}
+
+.exact-search-btn:active {
+  transform: scale(0.99);
+}
+
+.exact-search-diamond {
+  font-size: 13px;
+  line-height: 1;
+  display: inline-block;
+}
+
+.exact-advanced-search-hotspot {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 190px;
+  height: 48px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  outline: none;
+}
+

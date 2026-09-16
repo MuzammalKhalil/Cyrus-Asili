@@ -20,7 +20,6 @@ import { renderContactView } from './views/contactView.js';
 import { renderExactPageView } from './views/exactPageView.js';
 import { renderGalleryView, renderNewsView, renderPropertyView } from './views/showcaseViews.js';
 import { renderHeader, updateActiveHeaderRoute } from './components/header.js';
-import { renderFooter } from './components/footer.js';
 import { renderBookingModal, openBookingModal } from './components/bookingModal.js';
 import { renderPropertyModal, openPropertyModal } from './components/propertyModal.js';
 
@@ -55,9 +54,8 @@ window.toggleQuickSearch = function() {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Mount Global Header & Footer Components dynamically across all pages
+// Mount Global Header Component dynamically across all pages
   renderHeader('#header-root');
-  renderFooter('#footer-root');
 
   // Keep the Listings menu aligned with the Figma navigation labels and order.
   const listingsMenu = document.querySelector('.dropdown a[data-route="listings"]')?.closest('.dropdown')?.querySelector('.dropdown-menu');
