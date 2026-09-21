@@ -268,6 +268,7 @@ function renderGlobalReachSection() {
 function renderOurDestinationsSection() {
   return `
     <section class="exact-destinations-section" aria-label="Our Destinations">
+      <div class="exact-dest-cards-backdrop" aria-hidden="true"></div>
       <div class="exact-dest-cards">
         <div class="exact-dest-card exact-dest-uae" onclick="window.router && window.router.navigate('services', { country: 'uae' })" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('services', { country: 'uae' })}" role="button" tabindex="0" title="UAE Investments">
           <img src="/assets/destinations/dest-uae-gray.png" alt="UAE Real Estate Investments" class="exact-dest-img exact-dest-gray" />
