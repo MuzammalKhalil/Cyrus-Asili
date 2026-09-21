@@ -120,12 +120,14 @@ export function renderExactPageView(page, params = {}) {
 
   const hasSearchBar = isHome || page === 'listings';
   const searchBarHtml = hasSearchBar ? renderSearchBarHtml(page, params) : '';
+  const reachSectionHtml = isHome ? renderGlobalReachSection() : '';
 
   container.innerHTML = `
     <div class="exact-page-stage">
       <img class="exact-page-image" src="${src}" alt="ASILI Holding ${page} page design" />
       ${bannerVideoHtml}
       ${searchBarHtml}
+      ${reachSectionHtml}
       ${hotspots.map(renderHotspot).join('')}
     </div>
   `;
@@ -230,5 +232,35 @@ window.handleExactSearch = function(event) {
     window.router.navigate('listings', { location, type, bedrooms, postcode, reference });
   }
 };
+
+function renderGlobalReachSection() {
+  return `
+    <section class="exact-global-reach-section" aria-label="Our Global Reach">
+      <h2 class="exact-reach-title">Our Global Reach</h2>
+      <div class="exact-reach-cards">
+        <div class="exact-reach-card exact-reach-card-1" onclick="window.router && window.router.navigate('services')" role="button" tabindex="0" title="Global Expertise">
+          <img src="/assets/reach/reach-card-1.png" alt="Global Expertise - Decades of experience in international real estate and investment." class="exact-reach-img exact-reach-sketch" />
+          <img src="/assets/reach/reach-card-1-color.png" alt="" class="exact-reach-img exact-reach-color" aria-hidden="true" />
+        </div>
+        <div class="exact-reach-card exact-reach-card-2" onclick="window.router && window.router.navigate('about')" role="button" tabindex="0" title="Proven Track Record">
+          <img src="/assets/reach/reach-card-2.png" alt="Proven Track Record - Over $18M in property sales across Turkey and the UAE." class="exact-reach-img exact-reach-sketch" />
+          <img src="/assets/reach/reach-card-2-color.png" alt="" class="exact-reach-img exact-reach-color" aria-hidden="true" />
+        </div>
+        <div class="exact-reach-card exact-reach-card-3" onclick="window.router && window.router.navigate('listings')" role="button" tabindex="0" title="Diverse Portfolio">
+          <img src="/assets/reach/reach-card-3-sketch.png" alt="Diverse Portfolio - From luxury residences to social housing and commercial properties." class="exact-reach-img exact-reach-sketch" />
+          <img src="/assets/reach/reach-card-3.png" alt="" class="exact-reach-img exact-reach-color" aria-hidden="true" />
+        </div>
+        <div class="exact-reach-card exact-reach-card-4" onclick="window.router && window.router.navigate('services')" role="button" tabindex="0" title="Comprehensive Services">
+          <img src="/assets/reach/reach-card-4.png" alt="Comprehensive Services - Off-plan investments construction, refurbishment, and more." class="exact-reach-img exact-reach-sketch" />
+          <img src="/assets/reach/reach-card-4-color.png" alt="" class="exact-reach-img exact-reach-color" aria-hidden="true" />
+        </div>
+        <div class="exact-reach-card exact-reach-card-5" onclick="window.router && window.router.navigate('services')" role="button" tabindex="0" title="Golden Visa Opportunities">
+          <img src="/assets/reach/reach-card-5.png" alt="Golden Visa Opportunities - Properties suitable for residency programs in Europe." class="exact-reach-img exact-reach-sketch" />
+          <img src="/assets/reach/reach-card-5-color.png" alt="" class="exact-reach-img exact-reach-color" aria-hidden="true" />
+        </div>
+      </div>
+    </section>
+  `;
+}
 
 

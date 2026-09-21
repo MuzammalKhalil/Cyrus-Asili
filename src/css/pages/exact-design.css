@@ -368,3 +368,111 @@ body.exact-design-mode #main-content {
   outline: none;
 }
 
+/* ==========================================================================
+   Interactive "Our Global Reach" Section (Home Page)
+   ========================================================================== */
+.exact-global-reach-section {
+  position: absolute;
+  left: 5.2083%;
+  top: 16.12%;
+  width: 89.53125%;
+  background: #FFFFFF;
+  z-index: 8;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 18px;
+}
+
+.exact-reach-title {
+  font-family: 'Marcellus', 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.6rem, 1.85vw, 2.3rem);
+  font-weight: 400;
+  text-align: center;
+  color: #1D1D1B;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0 0 1.2rem;
+}
+
+.exact-reach-cards {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  gap: 1.6%;
+  box-sizing: border-box;
+}
+
+.exact-reach-card {
+  flex: 0 1 auto;
+  position: relative;
+  cursor: pointer;
+  transform-origin: bottom center;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              filter 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.exact-reach-card-1 { width: 19.0%; }
+.exact-reach-card-2 { width: 17.84%; }
+.exact-reach-card-3 { width: 18.23%; }
+.exact-reach-card-4 { width: 17.84%; }
+.exact-reach-card-5 { width: 19.14%; }
+
+.exact-reach-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.exact-reach-sketch {
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.exact-reach-color {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover Interactions for All Cards */
+.exact-reach-card:hover,
+.exact-reach-card:focus-visible {
+  transform: translateY(-14px) scale(1.03);
+  z-index: 10;
+  filter: drop-shadow(0 22px 36px rgba(10, 20, 40, 0.25)) 
+         drop-shadow(0 0 22px rgba(212, 175, 55, 0.32));
+}
+
+.exact-reach-card:focus-visible {
+  outline: 2px solid #D4AF37;
+  outline-offset: 4px;
+}
+
+/* Reveal Color Overlay on Hover */
+.exact-reach-card:hover .exact-reach-color,
+.exact-reach-card:focus-visible .exact-reach-color {
+  opacity: 1;
+}
+
+.exact-reach-card:hover .exact-reach-sketch,
+.exact-reach-card:focus-visible .exact-reach-sketch {
+  opacity: 0;
+}
+
+
+
+
