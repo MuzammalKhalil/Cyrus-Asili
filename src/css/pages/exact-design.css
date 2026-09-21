@@ -570,16 +570,7 @@ body.exact-design-mode #main-content {
 .exact-dest-turkey .exact-dest-label { top: 30.25%; }
 .exact-dest-cyprus .exact-dest-label { top: 19.62%; }
 
-/* When section is hovered: all cards reveal vibrant color (matching the user reference image) */
-.exact-destinations-section:hover .exact-dest-color {
-  opacity: 0.95;
-}
-
-.exact-destinations-section:hover .exact-dest-gray {
-  opacity: 0.05;
-}
-
-/* Individual card hover & focus: 3D elevation, full color, gold halo */
+/* Individual card hover & focus: ONLY hovered card reveals color, 3D elevation, gold halo */
 .exact-dest-card:hover,
 .exact-dest-card:focus-visible {
   transform: translateY(-16px) scale(1.04);
