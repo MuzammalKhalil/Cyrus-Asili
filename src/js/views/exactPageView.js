@@ -122,6 +122,7 @@ export function renderExactPageView(page, params = {}) {
   const searchBarHtml = hasSearchBar ? renderSearchBarHtml(page, params) : '';
   const reachSectionHtml = isHome ? renderGlobalReachSection() : '';
   const destinationsSectionHtml = isHome ? renderOurDestinationsSection() : '';
+  const partnersSliderHtml = isHome ? renderOurPartnersSlider() : '';
 
   container.innerHTML = `
     <div class="exact-page-stage">
@@ -130,14 +131,20 @@ export function renderExactPageView(page, params = {}) {
       ${searchBarHtml}
       ${reachSectionHtml}
       ${destinationsSectionHtml}
+      ${partnersSliderHtml}
       ${hotspots.map(renderHotspot).join('')}
     </div>
   `;
 
+  // Initialize interactive sliders on Home page
+  if (isHome) {
+    initPartnersSlider(container);
+  }
+
   // Ensure autoplay triggers on mount for all pages
   const video = container.querySelector('.exact-banner-video');
   if (video) {
-    video.play().catch(() => {});
+    video.play().catch(() => { });
   }
 
   return container;
@@ -220,7 +227,7 @@ function renderSearchBarHtml(page, params = {}) {
   `;
 }
 
-window.handleExactSearch = function(event) {
+window.handleExactSearch = function (event) {
   if (event) event.preventDefault();
   const form = document.querySelector('.exact-search-form');
   if (!form) return;
@@ -298,6 +305,99 @@ function renderOurDestinationsSection() {
       </div>
     </section>
   `;
+}
+
+window.slidePartners = function (direction) {
+  const viewport = document.getElementById('exact-partners-viewport');
+  if (!viewport) return;
+  const scrollAmount = Math.max(260, viewport.clientWidth * 0.45);
+  viewport.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+};
+
+function renderOurPartnersSlider() {
+  const partners = [
+    { name: 'Binghatti Developers', logo: '/assets/image_61-2003_2396.png' },
+    { name: 'Bugatti Residences by Binghatti', logo: '/assets/image_62-2003_2397.png' },
+    { name: 'DAG Holding', logo: '/assets/image_63-2003_2398.png' },
+    { name: 'Property Direct', logo: '/assets/logo_1-2003_2399.png' },
+    { name: 'Fournado Hills Villas', logo: '/assets/Asset_1_1-2003_2400.png' }
+  ];
+
+  // Repeat partners 4 times to allow smooth multi-page continuous sliding
+  const allPartners = [...partners, ...partners, ...partners, ...partners];
+
+  return `
+    <section class="exact-partners-slider-section" aria-label="Our Partners Slider">
+      <div class="exact-partners-backdrop" aria-hidden="true"></div>
+      <button class="exact-slider-arrow exact-arrow-prev" type="button" aria-label="Previous partners" onclick="window.slidePartners(-1)">
+        <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <div class="exact-partners-viewport" id="exact-partners-viewport">
+        <div class="exact-partners-track" id="exact-partners-track">
+          ${allPartners.map((p) => `
+            <div class="exact-partner-item" title="${p.name}">
+              <img src="${p.logo}" alt="${p.name}" class="exact-partner-logo" loading="lazy" />
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <button class="exact-slider-arrow exact-arrow-next" type="button" aria-label="Next partners" onclick="window.slidePartners(1)">
+        <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </section>
+  `;
+}
+
+function initPartnersSlider(container) {
+  setTimeout(() => {
+    const viewport = container.querySelector('#exact-partners-viewport');
+    if (!viewport) return;
+
+    // Start centered in the duplicated loop
+    if (viewport.scrollWidth > viewport.clientWidth) {
+      viewport.scrollLeft = (viewport.scrollWidth - viewport.clientWidth) / 2;
+    }
+
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    viewport.addEventListener('mousedown', (e) => {
+      isDown = true;
+      viewport.classList.add('dragging');
+      startX = e.pageX - viewport.offsetLeft;
+      scrollLeft = viewport.scrollLeft;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDown) {
+        isDown = false;
+        viewport.classList.remove('dragging');
+      }
+    });
+
+    viewport.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - viewport.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      viewport.scrollLeft = scrollLeft - walk;
+    });
+
+    // Infinite loop scrolling reset
+    viewport.addEventListener('scroll', () => {
+      const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+      if (viewport.scrollLeft >= maxScroll - 30) {
+        viewport.scrollLeft = maxScroll / 2;
+      } else if (viewport.scrollLeft <= 30) {
+        viewport.scrollLeft = maxScroll / 2;
+      }
+    });
+  }, 100);
 }
 
 
