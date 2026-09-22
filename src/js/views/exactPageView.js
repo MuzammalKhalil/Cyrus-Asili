@@ -319,19 +319,19 @@ window.slidePartners = function (direction) {
 
 function renderOurPartnersSlider() {
   const partners = [
-    { name: 'Binghatti Developers', logo: '/assets/image_61-2003_2396.png' },
-    { name: 'Bugatti Residences by Binghatti', logo: '/assets/image_62-2003_2397.png' },
-    { name: 'DAG Holding', logo: '/assets/image_63-2003_2398.png' },
-    { name: 'Property Direct', logo: '/assets/logo_1-2003_2399.png' },
-    { name: 'Fournado Hills Villas', logo: '/assets/Asset_1_1-2003_2400.png' }
+    { name: 'Binghatti Developers', logo: '/assets/image_61-2003_2396.png', key: 'binghatti' },
+    { name: 'Bugatti Residences by Binghatti', logo: '/assets/image_62-2003_2397.png', key: 'bugatti' },
+    { name: 'DAG Holding', logo: '/assets/image_63-2003_2398.png', key: 'dag' },
+    { name: 'Property Direct', logo: '/assets/logo_1-2003_2399.png', key: 'property-direct' },
+    { name: 'Fournado Hills Villas', logo: '/assets/Asset_1_1-2003_2400.png', key: 'fournado' }
   ];
 
   // Repeat partners 4 times in each group (20 logos in each group, 40 total)
   const halfSet = [...partners, ...partners, ...partners, ...partners];
 
   const renderPartnerItem = (p) => `
-    <div class="exact-partner-item" title="${p.name}">
-      <img src="${p.logo}" alt="${p.name}" class="exact-partner-logo" loading="eager" decoding="async" />
+    <div class="exact-partner-item exact-partner-${p.key}" title="${p.name}">
+      <img src="${p.logo}" alt="${p.name}" class="exact-partner-logo exact-logo-${p.key}" loading="eager" decoding="async" />
     </div>
   `;
 

@@ -741,6 +741,12 @@ body.exact-design-mode #main-content {
   opacity: 1;
 }
 
+/* Specific height boost for DAG Holding logo */
+.exact-partner-item.exact-partner-dag .exact-partner-logo,
+.exact-partner-logo.exact-logo-dag {
+  max-height: clamp(38px, 3.6vw, 72px);
+}
+
 
 
 
