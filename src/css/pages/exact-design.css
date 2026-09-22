@@ -680,7 +680,7 @@ body.exact-design-mode #main-content {
   margin: 0 16px;
   overflow-x: auto;
   overflow-y: hidden;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   cursor: grab;
