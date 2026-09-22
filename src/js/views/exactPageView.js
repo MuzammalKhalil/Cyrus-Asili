@@ -72,10 +72,11 @@ function getBannerInfo(page, params = {}) {
 
 export function renderExactPageView(page, params = {}) {
   const container = document.createElement('div');
-  container.className = 'exact-page';
+  container.className = `exact-page exact-page-${page}`;
 
   const src = getAssetForPage(page, params);
   const isHome = page === 'home';
+  const hasPartners = isHome || page === 'about';
 
   let bannerVideoHtml = '';
 
@@ -122,7 +123,7 @@ export function renderExactPageView(page, params = {}) {
   const searchBarHtml = hasSearchBar ? renderSearchBarHtml(page, params) : '';
   const reachSectionHtml = isHome ? renderGlobalReachSection() : '';
   const destinationsSectionHtml = isHome ? renderOurDestinationsSection() : '';
-  const partnersSliderHtml = isHome ? renderOurPartnersSlider() : '';
+  const partnersSliderHtml = hasPartners ? renderOurPartnersSlider() : '';
 
   container.innerHTML = `
     <div class="exact-page-stage">
@@ -136,8 +137,8 @@ export function renderExactPageView(page, params = {}) {
     </div>
   `;
 
-  // Initialize interactive sliders on Home page
-  if (isHome) {
+  // Initialize interactive sliders on pages with partners (Home and About Us)
+  if (hasPartners) {
     initPartnersSlider(container);
   }
 
