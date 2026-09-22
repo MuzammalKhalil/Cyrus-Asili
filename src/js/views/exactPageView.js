@@ -338,11 +338,6 @@ function renderOurPartnersSlider() {
   return `
     <section class="exact-partners-slider-section" aria-label="Our Partners Slider">
       <div class="exact-partners-backdrop" aria-hidden="true"></div>
-      <button class="exact-slider-arrow exact-arrow-prev" type="button" aria-label="Previous partners" onclick="window.slidePartners(-1)">
-        <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="15 18 9 12 15 6"></polyline>
-        </svg>
-      </button>
       <div class="exact-partners-viewport" id="exact-partners-viewport">
         <div class="exact-partners-mover" id="exact-partners-mover">
           <div class="exact-partners-track" id="exact-partners-track">
@@ -355,11 +350,6 @@ function renderOurPartnersSlider() {
           </div>
         </div>
       </div>
-      <button class="exact-slider-arrow exact-arrow-next" type="button" aria-label="Next partners" onclick="window.slidePartners(1)">
-        <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="9 18 15 12 9 6"></polyline>
-        </svg>
-      </button>
     </section>
   `;
 }
