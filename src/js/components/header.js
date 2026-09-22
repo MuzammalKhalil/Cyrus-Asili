@@ -62,20 +62,20 @@ export function renderHeader(mountSelector = '#header-root') {
         <!-- Header Actions: Search & Consultation CTA -->
         <div class="header-actions">
           <!-- Search Button -->
-          <button class="header-search-btn" title="Search Properties" onclick="window.toggleQuickSearch()">
+          <a href="#listings" data-route="listings" class="header-search-btn" title="Search Properties">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-          </button>
+          </a>
 
           <!-- Book Consultation CTA Button -->
-          <button class="btn-figma-consultation" onclick="window.openBookingModal()">
+          <a href="#contact" data-route="contact" class="btn-figma-consultation" onclick="if(window.router){window.router.navigate('contact');}">
             <span>Book A Consultation</span>
             <svg class="btn-circle-svg" width="9" height="9" viewBox="0 0 10 10" fill="none">
               <circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.3"/>
             </svg>
-          </button>
+          </a>
         </div>
       </div>
     </header>

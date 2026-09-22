@@ -180,7 +180,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.05);
+  background: transparent;
   color: var(--text-primary);
   border: 1px solid var(--border-light);
   font-weight: 500;
@@ -190,12 +190,13 @@ input:focus, select:focus, textarea:focus {
   align-items: center;
   gap: 0.5rem;
   transition: var(--transition-smooth);
+  cursor: pointer;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--primary-gold);
-  color: var(--primary-gold);
+  background: #14161a;
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #FFFFFF;
 }
 
 .glass-panel {

@@ -36,65 +36,6 @@ body.exact-design-mode #main-content {
   /* 152px / 1920px: clips baked-in header from screenshot */
 }
 
-.exact-hotspot {
-  display: none;
-  /* Replaced by universal dynamic header component */
-}
-
-.exact-hotspot:focus-visible {
-  outline: 2px solid rgba(212, 175, 55, 0.9);
-  outline-offset: 2px;
-}
-
-.hotspot-logo {
-  left: 3.8%;
-  top: 0.72%;
-  width: 11.2%;
-  height: 1.42%;
-}
-
-.hotspot-about {
-  left: 33.4%;
-  top: 0.82%;
-  width: 5.2%;
-  height: 1.1%;
-}
-
-.hotspot-listings {
-  left: 41.6%;
-  top: 0.82%;
-  width: 7.3%;
-  height: 1.1%;
-}
-
-.hotspot-services {
-  left: 51.2%;
-  top: 0.82%;
-  width: 8%;
-  height: 1.1%;
-}
-
-.hotspot-contact {
-  left: 61.2%;
-  top: 0.82%;
-  width: 6.2%;
-  height: 1.1%;
-}
-
-.hotspot-search {
-  left: 74.5%;
-  top: 0.82%;
-  width: 2.8%;
-  height: 1.1%;
-}
-
-.hotspot-book {
-  left: 79.4%;
-  top: 0.54%;
-  width: 16.4%;
-  height: 1.65%;
-}
-
 @media (max-width: 720px) {
   .exact-page-stage {
     min-width: 720px;
@@ -328,7 +269,7 @@ body.exact-design-mode #main-content {
   height: 74px;
   background: #1D1D1B;
   color: #FFFFFF;
-  border: none;
+  border: 1.5px solid #1D1D1B;
   border-radius: 0;
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 19px;
@@ -340,11 +281,13 @@ body.exact-design-mode #main-content {
   gap: 8px;
   cursor: pointer;
   box-sizing: border-box;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.1s ease;
 }
 
 .exact-search-btn:hover {
-  background: #2D2D2B;
+  background: transparent;
+  color: #1D1D1B;
+  border-color: #1D1D1B;
 }
 
 .exact-search-btn:active {
@@ -357,18 +300,179 @@ body.exact-design-mode #main-content {
   display: inline-block;
 }
 
-.exact-advanced-search-hotspot {
+/* Clean button backdrops to eliminate ghost/duplicate non-working buttons from design image */
+.exact-btn-backdrop {
   position: absolute;
-  right: 0;
-  top: 100%;
-  width: 190px;
-  height: 48px;
-  background: transparent;
-  border: none;
+  z-index: 9;
+  pointer-events: none;
+}
+
+.exact-home-backdrop-learn-more {
+  top: 29.45%;
+  left: 11.0%;
+  width: 12.6%;
+  height: 0.95%;
+  background: #FFFFFF;
+}
+
+.exact-home-backdrop-why-buttons {
+  top: 57.30%;
+  left: 33.8%;
+  width: 32.4%;
+  height: 0.95%;
+  background: #F4F4F4;
+}
+
+.exact-home-backdrop-deals {
+  top: 80.10%;
+  left: 11.0%;
+  width: 14.7%;
+  height: 0.95%;
+  background: #F4F4F4;
+}
+
+.exact-home-backdrop-news {
+  top: 86.45%;
+  left: 76.8%;
+  width: 11.9%;
+  height: 0.95%;
+  background: #FFFFFF;
+}
+
+/* ==========================================================================
+   Universal Interactive Overlay Buttons (Exact Stage)
+   ========================================================================== */
+.exact-interactive-btn {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(14px, 1.05vw, 19px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  white-space: nowrap;
+  z-index: 10;
+  border-radius: 0;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.12s ease, box-shadow 0.25s ease;
+}
+
+.exact-interactive-btn:active {
+  transform: scale(0.985);
+}
+
+/* Black Button: Normal Black bg + White text -> Hover: Transparent bg + Black text */
+.exact-btn-black {
+  background: #1D1D1B !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid #1D1D1B !important;
+}
+
+.exact-btn-black:hover {
+  background: transparent !important;
+  color: #1D1D1B !important;
+  border-color: #1D1D1B !important;
+}
+
+/* Transparent Button: Normal Transparent bg + Black text -> Hover: Black bg + White text */
+.exact-btn-transparent {
+  background: transparent !important;
+  color: #1D1D1B !important;
+  border: 1.5px solid #1D1D1B !important;
+}
+
+.exact-btn-transparent:hover {
+  background: #1D1D1B !important;
+  color: #FFFFFF !important;
+  border-color: #1D1D1B !important;
+}
+
+/* Page Button Positions */
+/* Home Page */
+.exact-home-btn-learn-more {
+  top: 29.6788%;
+  left: 11.1979%;
+  width: 12.1701%;
+  height: 0.6981%;
+}
+
+.exact-home-btn-why-search {
+  top: 57.4718%;
+  left: 34.1667%;
+  width: 15.2951%;
+  height: 0.6981%;
+}
+
+.exact-home-btn-why-consult {
+  top: 57.4718%;
+  left: 50.5208%;
+  width: 15.2951%;
+  height: 0.6981%;
+}
+
+.exact-home-btn-deals-search {
+  top: 80.2805%;
+  left: 11.1979%;
+  width: 14.2535%;
+  height: 0.6981%;
+}
+
+.exact-home-btn-news-submit {
+  top: 86.6389%;
+  left: 77.0833%;
+  width: 11.4410%;
+  height: 0.6981%;
+}
+
+/* Listings Page */
+.exact-listings-btn-consult {
+  top: 69.5307%;
+  left: 12.9688%;
+  width: 21.3368%;
+  height: 1.0928%;
+}
+
+/* About Us Page */
+.exact-about-btn-news-submit {
+  top: 79.8219%;
+  left: 77.0833%;
+  width: 11.4410%;
+  height: 1.0475%;
+}
+
+/* Services Pages */
+.exact-services-btn-view-all {
+  top: 52.8408%;
+  left: 41.1632%;
+  width: 17.6910%;
+  height: 0.8666%;
+}
+
+.exact-services-btn-consult {
+  top: 63.2514%;
+  left: 11.1979%;
+  width: 15.6076%;
+  height: 0.8666%;
+}
+
+/* Footer Quick Links overlay styles */
+.exact-footer-link {
+  position: absolute;
   cursor: pointer;
   z-index: 10;
-  outline: none;
+  display: block;
+  transition: opacity 0.2s ease;
 }
+
+.exact-footer-link:hover {
+  background: rgba(212, 175, 55, 0.12);
+  outline: 1px dashed rgba(212, 175, 55, 0.7);
+}
+
 
 /* ==========================================================================
    Interactive "Our Global Reach" Section (Home Page)

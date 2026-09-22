@@ -30,18 +30,26 @@
 }
 
 .tab-btn {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255,255,255,0.8);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255,255,255,0.85);
   padding: 0.7rem 1.2rem;
   border-radius: var(--radius-full);
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   transition: var(--transition-fast);
+  cursor: pointer;
 }
 
-.tab-btn:hover, .tab-btn.active {
+.tab-btn:hover {
+  background: #14161a;
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.tab-btn.active {
   background: var(--primary-gold);
   color: #0A0E17;
   border-color: var(--primary-gold);

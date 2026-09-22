@@ -12,16 +12,6 @@ const pageAssets = {
   }
 };
 
-const hotspots = [
-  { label: 'Home', route: 'home', className: 'hotspot-logo' },
-  { label: 'About', route: 'about', className: 'hotspot-about' },
-  { label: 'Listings', route: 'listings', className: 'hotspot-listings' },
-  { label: 'Services', route: 'services', className: 'hotspot-services' },
-  { label: 'Contact', route: 'contact', className: 'hotspot-contact' },
-  { label: 'Search listings', route: 'listings', className: 'hotspot-search' },
-  { label: 'Book a consultation', action: 'booking', className: 'hotspot-book' }
-];
-
 function getBannerInfo(page, params = {}) {
   if (page === 'about') {
     return {
@@ -124,6 +114,7 @@ export function renderExactPageView(page, params = {}) {
   const reachSectionHtml = isHome ? renderGlobalReachSection() : '';
   const destinationsSectionHtml = isHome ? renderOurDestinationsSection() : '';
   const partnersSliderHtml = hasPartners ? renderOurPartnersSlider() : '';
+  const interactiveButtonsHtml = renderInteractiveButtons(page, params);
 
   container.innerHTML = `
     <div class="exact-page-stage">
@@ -133,7 +124,7 @@ export function renderExactPageView(page, params = {}) {
       ${reachSectionHtml}
       ${destinationsSectionHtml}
       ${partnersSliderHtml}
-      ${hotspots.map(renderHotspot).join('')}
+      ${interactiveButtonsHtml}
     </div>
   `;
 
@@ -160,12 +151,127 @@ function getAssetForPage(page, params) {
   return pageAssets[page] || pageAssets.home;
 }
 
-function renderHotspot(item) {
-  if (item.action === 'booking') {
-    return `<button class="exact-hotspot ${item.className}" type="button" aria-label="${item.label}" onclick="window.openBookingModal()"></button>`;
+
+function renderInteractiveButtons(page, params = {}) {
+  if (page === 'home') {
+    return `
+      <!-- Clean Backdrops to eliminate ghost/duplicate non-working buttons from design image -->
+      <div class="exact-btn-backdrop exact-home-backdrop-learn-more" aria-hidden="true"></div>
+      <div class="exact-btn-backdrop exact-home-backdrop-why-buttons" aria-hidden="true"></div>
+      <div class="exact-btn-backdrop exact-home-backdrop-deals" aria-hidden="true"></div>
+      <div class="exact-btn-backdrop exact-home-backdrop-news" aria-hidden="true"></div>
+
+      <!-- Home: Learn More (About Asili) -> links to #about -->
+      <a href="#about" data-route="about" class="exact-interactive-btn exact-btn-black exact-home-btn-learn-more" title="Learn More About Asili">
+        <span>Learn More</span>
+        <span class="exact-search-diamond">⋄</span>
+      </a>
+
+      <!-- Home: Property Search (Why Choose section - Black) -> links to #listings -->
+      <a href="#listings" data-route="listings" class="exact-interactive-btn exact-btn-black exact-home-btn-why-search" title="Search Properties">
+        <span>Property Search</span>
+        <span class="exact-search-diamond">⋄</span>
+      </a>
+
+      <!-- Home: Book A Consultation (Why Choose section - Transparent) -> links to #contact / modal -->
+      <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-transparent exact-home-btn-why-consult" onclick="if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
+        <span>Book A Consultation</span>
+        <span class="exact-search-diamond">⋄</span>
+      </a>
+
+      <!-- Home: Property Search (Deals section - Black) -> links to #listings -->
+      <a href="#listings" data-route="listings" class="exact-interactive-btn exact-btn-black exact-home-btn-deals-search" title="Explore Deals & Listings">
+        <span>Property Search</span>
+        <span class="exact-search-diamond">⋄</span>
+      </a>
+
+      <!-- Home: Submit (News & Blog section - Black) -> links to #news -->
+      <a href="#news" data-route="news" class="exact-interactive-btn exact-btn-black exact-home-btn-news-submit" title="The Asili Journal - News & Blogs">
+        <span>Submit</span>
+        <span class="exact-search-diamond">⋄</span>
+      </a>
+
+      <!-- Home Footer Quick Links -->
+      <a href="#home" data-route="home" class="exact-footer-link" style="top: 92.15%; left: 32.5%; width: 10%; height: 0.55%;" title="Home"></a>
+      <a href="#about" data-route="about" class="exact-footer-link" style="top: 92.70%; left: 32.5%; width: 10%; height: 0.55%;" title="About Us"></a>
+      <a href="#listings" data-route="listings" class="exact-footer-link" style="top: 93.25%; left: 32.5%; width: 14%; height: 0.55%;" title="Property Marketplace"></a>
+      <a href="#services" data-route="services" class="exact-footer-link" style="top: 93.80%; left: 32.5%; width: 10%; height: 0.55%;" title="Services"></a>
+      <a href="#gallery" data-route="gallery" class="exact-footer-link" style="top: 94.35%; left: 32.5%; width: 10%; height: 0.55%;" title="Gallery"></a>
+      <a href="#news" data-route="news" class="exact-footer-link" style="top: 94.90%; left: 32.5%; width: 12%; height: 0.55%;" title="News & Blogs"></a>
+      <a href="#contact" data-route="contact" class="exact-footer-link" style="top: 92.70%; left: 45.0%; width: 10%; height: 0.55%;" title="Contact Us"></a>
+    `;
   }
 
-  return `<button class="exact-hotspot ${item.className}" type="button" aria-label="${item.label}" onclick="window.router.navigate('${item.route}')"></button>`;
+  if (page === 'listings') {
+    return `
+      <!-- Listings: Book A Consultation under Can't find the right fit? -->
+      <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-black exact-listings-btn-consult" onclick="if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
+        <span>Book A Consultation</span>
+        <span class="exact-search-diamond">⋄</span>
+      </a>
+
+      <!-- Listings Highlights Filter Buttons -->
+      <button type="button" class="exact-interactive-btn exact-btn-black" style="top: 61.2%; left: 12.97%; width: 9.8%; height: 1.1%; font-size: 13px;" onclick="window.router.navigate('listings')" title="Featured Listings">
+        Featured
+      </button>
+      <button type="button" class="exact-interactive-btn exact-btn-transparent" style="top: 61.2%; left: 23.2%; width: 14.2%; height: 1.1%; font-size: 13px;" onclick="window.router.navigate('listings')" title="Golden Visa Eligible">
+        Golden Visa Eligible
+      </button>
+      <button type="button" class="exact-interactive-btn exact-btn-transparent" style="top: 62.6%; left: 12.97%; width: 8.2%; height: 1.1%; font-size: 13px;" onclick="window.router.navigate('listings')" title="Off-Plan">
+        Off-Plan
+      </button>
+      <button type="button" class="exact-interactive-btn exact-btn-transparent" style="top: 62.6%; left: 21.6%; width: 9.6%; height: 1.1%; font-size: 13px;" onclick="window.router.navigate('listings')" title="New Build">
+        New Build
+      </button>
+    `;
+  }
+
+  if (page === 'about') {
+    return `
+      <!-- About: Submit (News & Blog) -> links to #news -->
+      <a href="#news" data-route="news" class="exact-interactive-btn exact-btn-black exact-about-btn-news-submit" title="The Asili Journal - News & Blogs">
+        <span>Submit</span>
+        <span class="exact-search-diamond">⋄</span>
+      </a>
+    `;
+  }
+
+  if (page === 'services') {
+    const country = params.country || 'uk';
+    const countryLabels = {
+      uk: 'UK',
+      uae: 'UAE',
+      greece: 'Greece',
+      cyprus: 'Cyprus',
+      turkey: 'Turkey'
+    };
+    const label = countryLabels[country] || 'All';
+    return `
+      <!-- Services: View All [Country] Listings -> links to listings -->
+      <a href="#listings?country=${country}" data-route="listings" data-country="${country}" class="exact-interactive-btn exact-btn-black exact-services-btn-view-all" title="View All ${label} Listings">
+        <span>View All ${label} Listings</span>
+        <span class="exact-search-diamond">⋄</span>
+      </a>
+
+      <!-- Services: Book A Consultation -> links to #contact -->
+      <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-black exact-services-btn-consult" onclick="if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
+        <span>Book A Consultation</span>
+        <span class="exact-search-diamond">⋄</span>
+      </a>
+    `;
+  }
+
+  if (page === 'contact') {
+    return `
+      <!-- Contact: Book A Consultation -> links to #contact -->
+      <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-black exact-services-btn-consult" onclick="if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
+        <span>Book A Consultation</span>
+        <span class="exact-search-diamond">⋄</span>
+      </a>
+    `;
+  }
+
+  return '';
 }
 
 function renderSearchBarHtml(page, params = {}) {
@@ -223,7 +329,6 @@ function renderSearchBarHtml(page, params = {}) {
           </button>
         </div>
       </form>
-      <button type="button" class="exact-advanced-search-hotspot" aria-label="Advanced Search" onclick="window.router && window.router.navigate('listings')"></button>
     </div>
   `;
 }
