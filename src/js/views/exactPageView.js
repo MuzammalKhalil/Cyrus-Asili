@@ -311,7 +311,7 @@ window.slidePartners = function (direction) {
   const mover = document.getElementById('exact-partners-mover');
   const viewport = document.getElementById('exact-partners-viewport');
   if (!mover || !viewport) return;
-  const step = Math.max(260, viewport.clientWidth * 0.45);
+  const step = viewport.clientWidth / 5;
   window._partnerShift = (window._partnerShift || 0) - direction * step;
   mover.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
   mover.style.transform = `translate3d(${window._partnerShift}px, 0, 0)`;
@@ -326,10 +326,14 @@ function renderOurPartnersSlider() {
     { name: 'Fournado Hills Villas', logo: '/assets/Asset_1_1-2003_2400.png' }
   ];
 
-  // Repeat partners 4 times in each half (40 logos total)
-  // Half 1 and Half 2 are 100% identical duplicates, making the -50% CSS marquee loop completely seamless!
+  // Repeat partners 4 times in each group (20 logos in each group, 40 total)
   const halfSet = [...partners, ...partners, ...partners, ...partners];
-  const allPartners = [...halfSet, ...halfSet];
+
+  const renderPartnerItem = (p) => `
+    <div class="exact-partner-item" title="${p.name}">
+      <img src="${p.logo}" alt="${p.name}" class="exact-partner-logo" loading="eager" decoding="async" />
+    </div>
+  `;
 
   return `
     <section class="exact-partners-slider-section" aria-label="Our Partners Slider">
@@ -342,11 +346,12 @@ function renderOurPartnersSlider() {
       <div class="exact-partners-viewport" id="exact-partners-viewport">
         <div class="exact-partners-mover" id="exact-partners-mover">
           <div class="exact-partners-track" id="exact-partners-track">
-            ${allPartners.map((p) => `
-              <div class="exact-partner-item" title="${p.name}">
-                <img src="${p.logo}" alt="${p.name}" class="exact-partner-logo" loading="eager" decoding="async" />
-              </div>
-            `).join('')}
+            <div class="exact-partners-group">
+              ${halfSet.map(renderPartnerItem).join('')}
+            </div>
+            <div class="exact-partners-group" aria-hidden="true">
+              ${halfSet.map(renderPartnerItem).join('')}
+            </div>
           </div>
         </div>
       </div>
@@ -371,9 +376,9 @@ function initPartnersSlider(container) {
     let startX = 0;
     let startShift = 0;
 
-    // Arrow controls
+    // Arrow controls: smoothly advance by 1 partner item width
     window.slidePartners = function (direction) {
-      const step = Math.max(260, viewport.clientWidth * 0.45);
+      const step = viewport.clientWidth / 5;
       window._partnerShift -= direction * step;
       mover.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
       mover.style.transform = `translate3d(${window._partnerShift}px, 0, 0)`;
