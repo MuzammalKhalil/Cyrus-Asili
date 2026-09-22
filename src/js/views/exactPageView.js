@@ -308,10 +308,13 @@ function renderOurDestinationsSection() {
 }
 
 window.slidePartners = function (direction) {
+  const mover = document.getElementById('exact-partners-mover');
   const viewport = document.getElementById('exact-partners-viewport');
-  if (!viewport) return;
-  const scrollAmount = Math.max(260, viewport.clientWidth * 0.45);
-  viewport.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+  if (!mover || !viewport) return;
+  const step = Math.max(260, viewport.clientWidth * 0.45);
+  window._partnerShift = (window._partnerShift || 0) - direction * step;
+  mover.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
+  mover.style.transform = `translate3d(${window._partnerShift}px, 0, 0)`;
 };
 
 function renderOurPartnersSlider() {
@@ -323,11 +326,10 @@ function renderOurPartnersSlider() {
     { name: 'Fournado Hills Villas', logo: '/assets/Asset_1_1-2003_2400.png' }
   ];
 
-  // Repeat partners 6 times to provide ample buffer for seamless continuous sliding
-  const allPartners = [
-    ...partners, ...partners, ...partners,
-    ...partners, ...partners, ...partners
-  ];
+  // Repeat partners 4 times in each half (40 logos total)
+  // Half 1 and Half 2 are 100% identical duplicates, making the -50% CSS marquee loop completely seamless!
+  const halfSet = [...partners, ...partners, ...partners, ...partners];
+  const allPartners = [...halfSet, ...halfSet];
 
   return `
     <section class="exact-partners-slider-section" aria-label="Our Partners Slider">
@@ -338,12 +340,14 @@ function renderOurPartnersSlider() {
         </svg>
       </button>
       <div class="exact-partners-viewport" id="exact-partners-viewport">
-        <div class="exact-partners-track" id="exact-partners-track">
-          ${allPartners.map((p) => `
-            <div class="exact-partner-item" title="${p.name}">
-              <img src="${p.logo}" alt="${p.name}" class="exact-partner-logo" loading="eager" decoding="async" />
-            </div>
-          `).join('')}
+        <div class="exact-partners-mover" id="exact-partners-mover">
+          <div class="exact-partners-track" id="exact-partners-track">
+            ${allPartners.map((p) => `
+              <div class="exact-partner-item" title="${p.name}">
+                <img src="${p.logo}" alt="${p.name}" class="exact-partner-logo" loading="eager" decoding="async" />
+              </div>
+            `).join('')}
+          </div>
         </div>
       </div>
       <button class="exact-slider-arrow exact-arrow-next" type="button" aria-label="Next partners" onclick="window.slidePartners(1)">
@@ -357,178 +361,60 @@ function renderOurPartnersSlider() {
 
 function initPartnersSlider(container) {
   setTimeout(() => {
-    const section = container.querySelector('.exact-partners-slider-section');
     const viewport = container.querySelector('#exact-partners-viewport');
+    const mover = container.querySelector('#exact-partners-mover');
     const track = container.querySelector('#exact-partners-track');
-    if (!viewport || !track) return;
+    if (!viewport || !mover || !track) return;
 
-    let isHovered = false;
-    let isDown = false;
+    window._partnerShift = 0;
+    let isDragging = false;
     let startX = 0;
-    let initialScroll = 0;
-    let pauseUntil = 0;
-    let scrollPos = 0;
-    const speed = 0.8; // Steady, luxurious continuous scrolling speed (px/frame)
+    let startShift = 0;
 
-    // Calculate exact pixel distance between cycle 0 and cycle 1 (5 items)
-    function getCycleWidth() {
-      const items = track.querySelectorAll('.exact-partner-item');
-      if (items.length >= 6) {
-        const dist = items[5].getBoundingClientRect().left - items[0].getBoundingClientRect().left;
-        if (dist > 50) return dist;
-      }
-      return 0;
-    }
-
-    let cycleWidth = getCycleWidth();
-
-    // Re-measure once logos load
-    const images = track.querySelectorAll('img');
-    images.forEach((img) => {
-      if (!img.complete) {
-        img.addEventListener('load', () => {
-          cycleWidth = getCycleWidth();
-        }, { once: true });
-      }
-    });
-
-    const onResize = () => {
-      cycleWidth = getCycleWidth();
+    // Arrow controls
+    window.slidePartners = function (direction) {
+      const step = Math.max(260, viewport.clientWidth * 0.45);
+      window._partnerShift -= direction * step;
+      mover.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
+      mover.style.transform = `translate3d(${window._partnerShift}px, 0, 0)`;
     };
-    window.addEventListener('resize', onResize);
 
-    // Initial position: start in cycle 2 for plenty of buffer on both ends
-    const initPos = () => {
-      cycleWidth = getCycleWidth();
-      if (cycleWidth > 50) {
-        scrollPos = cycleWidth * 2;
-        viewport.scrollLeft = scrollPos;
-      } else if (viewport.scrollWidth > viewport.clientWidth) {
-        scrollPos = (viewport.scrollWidth - viewport.clientWidth) / 2;
-        viewport.scrollLeft = scrollPos;
-      }
-    };
-    initPos();
-    setTimeout(initPos, 200);
-
-    // 60fps continuous auto-scroll loop
-    function step() {
-      if (!document.body.contains(viewport)) {
-        window.removeEventListener('resize', onResize);
-        return; // Page navigated away, stop cleanly
-      }
-
-      const now = Date.now();
-      if (!isHovered && !isDown && now >= pauseUntil) {
-        if (cycleWidth <= 50) {
-          cycleWidth = getCycleWidth();
-        }
-
-        scrollPos += speed;
-
-        // Seamless wrap-around without while loops
-        if (cycleWidth > 50) {
-          if (scrollPos >= cycleWidth * 3) {
-            scrollPos -= cycleWidth;
-          } else if (scrollPos <= cycleWidth) {
-            scrollPos += cycleWidth;
-          }
-        }
-
-        viewport.scrollLeft = scrollPos;
-      }
-
-      requestAnimationFrame(step);
-    }
-
-    requestAnimationFrame(step);
-
-    // Hover pause: pause movement when hovering anywhere on partners section
-    if (section) {
-      section.addEventListener('mouseenter', () => {
-        isHovered = true;
-        scrollPos = viewport.scrollLeft;
-      });
-      section.addEventListener('mouseleave', () => {
-        isHovered = false;
-        scrollPos = viewport.scrollLeft;
-      });
-    }
-
-    // Touch support for mobile / tablets
+    // Touch support: pause on touch
     viewport.addEventListener('touchstart', () => {
-      isHovered = true;
-      scrollPos = viewport.scrollLeft;
+      track.style.animationPlayState = 'paused';
     }, { passive: true });
 
     viewport.addEventListener('touchend', () => {
-      isHovered = false;
-      pauseUntil = Date.now() + 1500;
-      scrollPos = viewport.scrollLeft;
+      track.style.animationPlayState = 'running';
     }, { passive: true });
 
     // Drag-to-scroll support
     viewport.addEventListener('mousedown', (e) => {
-      isDown = true;
+      isDragging = true;
       viewport.classList.add('dragging');
-      startX = e.pageX - viewport.offsetLeft;
-      initialScroll = viewport.scrollLeft;
+      track.style.animationPlayState = 'paused';
+      mover.style.transition = 'none';
+      startX = e.pageX;
+      startShift = window._partnerShift || 0;
     });
 
     window.addEventListener('mouseup', () => {
-      if (isDown) {
-        isDown = false;
+      if (isDragging) {
+        isDragging = false;
         viewport.classList.remove('dragging');
-        pauseUntil = Date.now() + 1500;
-        scrollPos = viewport.scrollLeft;
+        track.style.animationPlayState = 'running';
+        mover.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
       }
     });
 
     viewport.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
+      if (!isDragging) return;
       e.preventDefault();
-      const x = e.pageX - viewport.offsetLeft;
-      const walk = (x - startX) * 1.5;
-      viewport.scrollLeft = initialScroll - walk;
-      scrollPos = viewport.scrollLeft;
+      const dx = e.pageX - startX;
+      window._partnerShift = startShift + dx;
+      mover.style.transform = `translate3d(${window._partnerShift}px, 0, 0)`;
     });
-
-    // Manual scroll wrap-around
-    viewport.addEventListener('scroll', () => {
-      if (isDown || isHovered) {
-        scrollPos = viewport.scrollLeft;
-        if (cycleWidth > 50) {
-          if (scrollPos >= cycleWidth * 4) {
-            scrollPos -= cycleWidth;
-            viewport.scrollLeft = scrollPos;
-          } else if (scrollPos <= cycleWidth * 0.5) {
-            scrollPos += cycleWidth;
-            viewport.scrollLeft = scrollPos;
-          }
-        }
-      }
-    });
-
-    // Arrow navigation with temporary pause
-    window.slidePartners = function (direction) {
-      if (!viewport) return;
-      const scrollAmount = Math.max(260, viewport.clientWidth * 0.45);
-      viewport.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
-      pauseUntil = Date.now() + 2000;
-      setTimeout(() => {
-        scrollPos = viewport.scrollLeft;
-        if (cycleWidth > 50) {
-          if (scrollPos >= cycleWidth * 3.5) {
-            scrollPos -= cycleWidth;
-            viewport.scrollLeft = scrollPos;
-          } else if (scrollPos <= cycleWidth * 0.8) {
-            scrollPos += cycleWidth;
-            viewport.scrollLeft = scrollPos;
-          }
-        }
-      }, 500);
-    };
-  }, 100);
+  }, 50);
 }
 
 

@@ -678,22 +678,21 @@ body.exact-design-mode #main-content {
   z-index: 1;
   flex: 1;
   margin: 0 16px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  overflow: hidden;
+  user-select: none;
   cursor: grab;
 }
 
 .exact-partners-viewport.dragging {
   cursor: grabbing;
-  scroll-behavior: auto;
-  user-select: none;
 }
 
-.exact-partners-viewport::-webkit-scrollbar {
-  display: none;
+.exact-partners-mover {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
 }
 
 .exact-partners-track {
@@ -703,6 +702,23 @@ body.exact-design-mode #main-content {
   gap: clamp(24px, 3.8vw, 72px);
   width: max-content;
   padding: 8px 12px;
+  animation: exactPartnersMarquee 35s linear infinite;
+  will-change: transform;
+}
+
+@keyframes exactPartnersMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Seamless Pause-on-Hover on both track and entire slider section */
+.exact-partners-slider-section:hover .exact-partners-track,
+.exact-partners-track:hover {
+  animation-play-state: paused !important;
 }
 
 .exact-partner-item {
