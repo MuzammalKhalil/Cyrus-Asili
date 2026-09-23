@@ -114,6 +114,7 @@ export function renderExactPageView(page, params = {}) {
   const reachSectionHtml = isHome ? renderGlobalReachSection() : '';
   const destinationsSectionHtml = isHome ? renderOurDestinationsSection() : '';
   const partnersSliderHtml = hasPartners ? renderOurPartnersSlider() : '';
+  const getInTouchFormHtml = renderGetInTouchForm(page);
   const interactiveButtonsHtml = renderInteractiveButtons(page, params);
 
   container.innerHTML = `
@@ -124,6 +125,7 @@ export function renderExactPageView(page, params = {}) {
       ${reachSectionHtml}
       ${destinationsSectionHtml}
       ${partnersSliderHtml}
+      ${getInTouchFormHtml}
       ${interactiveButtonsHtml}
     </div>
   `;
@@ -265,9 +267,21 @@ function renderInteractiveButtons(page, params = {}) {
 
   if (page === 'contact') {
     return `
-      <!-- Contact: Book A Consultation -> links to #contact -->
-      <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-black exact-services-btn-consult" onclick="if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
+      <!-- Contact: View All Cyprus Listings -->
+      <a href="#listings?country=cyprus" data-route="listings" data-country="cyprus" class="exact-interactive-btn exact-btn-black exact-services-btn-view-all" title="View All Cyprus Listings">
+        <span>View All Cyprus Listings</span>
+        ${circleIconSvg}
+      </a>
+
+      <!-- Contact: Book A Consultation -> triggers modal -->
+      <button type="button" class="exact-interactive-btn exact-btn-black exact-services-btn-consult" onclick="if(window.openBookingModal){window.openBookingModal();}else if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
         <span>Book A Consultation</span>
+        ${circleIconSvg}
+      </button>
+
+      <!-- Contact: Submit (News & Blog) -> links to #news -->
+      <a href="#news" data-route="news" class="exact-interactive-btn exact-btn-black exact-contact-btn-news-submit" title="The Asili Journal - News & Blogs">
+        <span>Submit</span>
         ${circleIconSvg}
       </a>
     `;
@@ -514,5 +528,109 @@ function initPartnersSlider(container) {
     });
   }, 50);
 }
+
+function renderGetInTouchForm(page) {
+  const topClass = `exact-get-in-touch-${page}`;
+  return `
+    <section class="exact-get-in-touch-section ${topClass}" id="get-in-touch-section" aria-label="Get In Touch">
+      <form class="exact-contact-form" onsubmit="window.handleExactContactSubmit(event, this)">
+        <h3 class="exact-contact-form-title">GET IN TOUCH</h3>
+        
+        <div class="exact-form-fields-wrapper">
+          <div class="exact-form-row exact-form-row-split">
+            <div class="exact-form-field">
+              <input type="text" name="firstName" class="exact-form-input" placeholder="First Name*" required aria-label="First Name" />
+            </div>
+            <div class="exact-form-field">
+              <input type="text" name="lastName" class="exact-form-input" placeholder="Last Name*" required aria-label="Last Name" />
+            </div>
+          </div>
+          
+          <div class="exact-form-row">
+            <div class="exact-form-field">
+              <input type="email" name="email" class="exact-form-input" placeholder="Email Address*" required aria-label="Email Address" />
+            </div>
+          </div>
+          
+          <div class="exact-form-row">
+            <div class="exact-form-field">
+              <input type="tel" name="phone" class="exact-form-input" placeholder="Phone Number" aria-label="Phone Number" />
+            </div>
+          </div>
+          
+          <div class="exact-form-row">
+            <div class="exact-form-field">
+              <textarea name="message" class="exact-form-textarea" placeholder="Type your message here..." required aria-label="Message"></textarea>
+            </div>
+          </div>
+          
+          <div class="exact-form-row exact-form-row-checkbox">
+            <label class="exact-form-checkbox-label">
+              <input type="checkbox" name="privacyPolicy" class="exact-form-checkbox" required />
+              <span class="exact-form-checkbox-text">By ticking this box I agree that I have read the <a href="#contact" class="exact-form-privacy-link">privacy policy</a>.*</span>
+            </label>
+          </div>
+          
+          <div class="exact-form-row exact-form-row-submit">
+            <button type="submit" class="exact-form-submit-btn" aria-label="Submit Contact Form">
+              <span>Submit</span>
+              ${circleIconSvg}
+            </button>
+          </div>
+        </div>
+
+        <div class="exact-form-success" style="display:none;" aria-live="polite">
+          <div class="exact-form-success-icon">✓</div>
+          <h4 class="exact-form-success-title">Message Received!</h4>
+          <p class="exact-form-success-desc">Thank you, <span class="exact-form-success-name"></span>! Our advisory team has received your message and will contact you shortly.</p>
+          <button type="button" class="exact-form-reset-btn" onclick="window.resetExactContactForm(this.closest('form'))">
+            Send Another Message
+          </button>
+        </div>
+      </form>
+    </section>
+  `;
+}
+
+window.handleExactContactSubmit = function (event, form) {
+  if (event) event.preventDefault();
+  if (!form) return;
+
+  const firstName = form.firstName?.value?.trim() || '';
+  const lastName = form.lastName?.value?.trim() || '';
+  const email = form.email?.value?.trim() || '';
+  const message = form.message?.value?.trim() || '';
+  const privacy = form.privacyPolicy?.checked;
+
+  if (!firstName || !lastName || !email || !message || !privacy) {
+    alert('Please fill out all required fields and accept the privacy policy.');
+    return;
+  }
+
+  const wrapper = form.querySelector('.exact-form-fields-wrapper');
+  const successBox = form.querySelector('.exact-form-success');
+  const nameSpan = form.querySelector('.exact-form-success-name');
+
+  if (nameSpan) {
+    nameSpan.textContent = firstName;
+  }
+
+  if (wrapper && successBox) {
+    wrapper.style.display = 'none';
+    successBox.style.display = 'flex';
+  }
+};
+
+window.resetExactContactForm = function (form) {
+  if (!form) return;
+  form.reset();
+  const wrapper = form.querySelector('.exact-form-fields-wrapper');
+  const successBox = form.querySelector('.exact-form-success');
+  if (wrapper && successBox) {
+    wrapper.style.display = 'block';
+    successBox.style.display = 'none';
+  }
+};
+
 
 
