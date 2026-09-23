@@ -462,11 +462,16 @@ body.exact-design-mode #main-content {
   height: 0.8666%;
 }
 
-.exact-contact-btn-news-submit {
-  top: 86.6389%;
-  left: 77.0833%;
-  width: 11.4410%;
-  height: 0.8666%;
+/* Contact page interactive hotspots (invisible, no visual duplication) */
+.exact-contact-hotspot {
+  position: absolute;
+  background: transparent !important;
+  border: none !important;
+  opacity: 0 !important;
+  cursor: pointer;
+  z-index: 10;
+  display: block;
+  outline: none;
 }
 
 /* Footer Quick Links overlay styles */
@@ -493,27 +498,45 @@ body.exact-design-mode #main-content {
   z-index: 12;
   background: #1D1D1B;
   box-sizing: border-box;
-  padding: 8px 10px 14px;
+  padding: clamp(10px, 0.9vw, 16px) clamp(10px, 0.8vw, 14px);
+}
+
+/* Extended backdrop beneath form to completely block out the underlying image's Submit button */
+.exact-get-in-touch-section::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: #1D1D1B;
+  z-index: -1;
+  pointer-events: none;
 }
 
 .exact-get-in-touch-home {
   top: 91.85%;
+  min-height: 4.95%;
 }
 
 .exact-get-in-touch-about {
   top: 87.58%;
+  min-height: 7.55%;
 }
 
 .exact-get-in-touch-listings {
   top: 81.40%;
+  min-height: 11.25%;
 }
 
 .exact-get-in-touch-services {
-  top: 89.75%;
+  top: 89.78%;
+  min-height: 6.20%;
 }
 
 .exact-get-in-touch-contact {
-  top: 89.75%;
+  top: 89.78%;
+  min-height: 6.20%;
 }
 
 .exact-contact-form {

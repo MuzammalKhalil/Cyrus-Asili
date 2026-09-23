@@ -267,23 +267,11 @@ function renderInteractiveButtons(page, params = {}) {
 
   if (page === 'contact') {
     return `
-      <!-- Contact: View All Cyprus Listings -->
-      <a href="#listings?country=cyprus" data-route="listings" data-country="cyprus" class="exact-interactive-btn exact-btn-black exact-services-btn-view-all" title="View All Cyprus Listings">
-        <span>View All Cyprus Listings</span>
-        ${circleIconSvg}
-      </a>
+      <!-- Contact: View All Cyprus Listings (Interactive Hotspot) -->
+      <a href="#listings?country=cyprus" data-route="listings" data-country="cyprus" class="exact-contact-hotspot" style="top: 52.84%; left: 41.15%; width: 17.7%; height: 0.88%;" title="View All Cyprus Listings"></a>
 
-      <!-- Contact: Book A Consultation -> triggers modal -->
-      <button type="button" class="exact-interactive-btn exact-btn-black exact-services-btn-consult" onclick="if(window.openBookingModal){window.openBookingModal();}else if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
-        <span>Book A Consultation</span>
-        ${circleIconSvg}
-      </button>
-
-      <!-- Contact: Submit (News & Blog) -> links to #news -->
-      <a href="#news" data-route="news" class="exact-interactive-btn exact-btn-black exact-contact-btn-news-submit" title="The Asili Journal - News & Blogs">
-        <span>Submit</span>
-        ${circleIconSvg}
-      </a>
+      <!-- Contact: Book A Consultation (Interactive Hotspot -> opens modal) -->
+      <button type="button" class="exact-contact-hotspot" style="top: 63.25%; left: 11.2%; width: 15.6%; height: 0.88%;" onclick="if(window.openBookingModal){window.openBookingModal();}" title="Book A Consultation"></button>
     `;
   }
 
