@@ -152,6 +152,8 @@ function getAssetForPage(page, params) {
 }
 
 
+const circleIconSvg = `<svg class="btn-circle-svg" width="9" height="9" viewBox="0 0 10 10" fill="none" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.3"/></svg>`;
+
 function renderInteractiveButtons(page, params = {}) {
   if (page === 'home') {
     return `
@@ -164,31 +166,31 @@ function renderInteractiveButtons(page, params = {}) {
       <!-- Home: Learn More (About Asili) -> links to #about -->
       <a href="#about" data-route="about" class="exact-interactive-btn exact-btn-black exact-home-btn-learn-more" title="Learn More About Asili">
         <span>Learn More</span>
-        <span class="exact-search-diamond">⋄</span>
+        ${circleIconSvg}
       </a>
 
       <!-- Home: Property Search (Why Choose section - Black) -> links to #listings -->
       <a href="#listings" data-route="listings" class="exact-interactive-btn exact-btn-black exact-home-btn-why-search" title="Search Properties">
         <span>Property Search</span>
-        <span class="exact-search-diamond">⋄</span>
+        ${circleIconSvg}
       </a>
 
       <!-- Home: Book A Consultation (Why Choose section - Transparent) -> links to #contact / modal -->
       <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-transparent exact-home-btn-why-consult" onclick="if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
         <span>Book A Consultation</span>
-        <span class="exact-search-diamond">⋄</span>
+        ${circleIconSvg}
       </a>
 
       <!-- Home: Property Search (Deals section - Black) -> links to #listings -->
       <a href="#listings" data-route="listings" class="exact-interactive-btn exact-btn-black exact-home-btn-deals-search" title="Explore Deals & Listings">
         <span>Property Search</span>
-        <span class="exact-search-diamond">⋄</span>
+        ${circleIconSvg}
       </a>
 
       <!-- Home: Submit (News & Blog section - Black) -> links to #news -->
       <a href="#news" data-route="news" class="exact-interactive-btn exact-btn-black exact-home-btn-news-submit" title="The Asili Journal - News & Blogs">
         <span>Submit</span>
-        <span class="exact-search-diamond">⋄</span>
+        ${circleIconSvg}
       </a>
 
       <!-- Home Footer Quick Links -->
@@ -207,7 +209,7 @@ function renderInteractiveButtons(page, params = {}) {
       <!-- Listings: Book A Consultation under Can't find the right fit? -->
       <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-black exact-listings-btn-consult" onclick="if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
         <span>Book A Consultation</span>
-        <span class="exact-search-diamond">⋄</span>
+        ${circleIconSvg}
       </a>
 
       <!-- Listings Highlights Filter Buttons -->
@@ -231,7 +233,7 @@ function renderInteractiveButtons(page, params = {}) {
       <!-- About: Submit (News & Blog) -> links to #news -->
       <a href="#news" data-route="news" class="exact-interactive-btn exact-btn-black exact-about-btn-news-submit" title="The Asili Journal - News & Blogs">
         <span>Submit</span>
-        <span class="exact-search-diamond">⋄</span>
+        ${circleIconSvg}
       </a>
     `;
   }
@@ -250,13 +252,13 @@ function renderInteractiveButtons(page, params = {}) {
       <!-- Services: View All [Country] Listings -> links to listings -->
       <a href="#listings?country=${country}" data-route="listings" data-country="${country}" class="exact-interactive-btn exact-btn-black exact-services-btn-view-all" title="View All ${label} Listings">
         <span>View All ${label} Listings</span>
-        <span class="exact-search-diamond">⋄</span>
+        ${circleIconSvg}
       </a>
 
       <!-- Services: Book A Consultation -> links to #contact -->
       <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-black exact-services-btn-consult" onclick="if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
         <span>Book A Consultation</span>
-        <span class="exact-search-diamond">⋄</span>
+        ${circleIconSvg}
       </a>
     `;
   }
@@ -266,7 +268,7 @@ function renderInteractiveButtons(page, params = {}) {
       <!-- Contact: Book A Consultation -> links to #contact -->
       <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-black exact-services-btn-consult" onclick="if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
         <span>Book A Consultation</span>
-        <span class="exact-search-diamond">⋄</span>
+        ${circleIconSvg}
       </a>
     `;
   }
@@ -325,7 +327,7 @@ function renderSearchBarHtml(page, params = {}) {
         <div class="exact-search-field-wrap exact-search-btn-wrap">
           <button type="submit" class="exact-search-btn" aria-label="Search">
             <span>Search</span>
-            <span class="exact-search-diamond">⋄</span>
+            ${circleIconSvg}
           </button>
         </div>
       </form>
@@ -353,25 +355,20 @@ function renderGlobalReachSection() {
     <section class="exact-global-reach-section" aria-label="Our Global Reach">
       <h2 class="exact-reach-title">Our Global Reach</h2>
       <div class="exact-reach-cards">
-        <div class="exact-reach-card exact-reach-card-1" onclick="window.router && window.router.navigate('services')" role="button" tabindex="0" title="Global Expertise">
-          <img src="/assets/reach/reach-card-1.png" alt="Global Expertise - Decades of experience in international real estate and investment." class="exact-reach-img exact-reach-sketch" />
-          <img src="/assets/reach/reach-card-1-color.png" alt="" class="exact-reach-img exact-reach-color" aria-hidden="true" />
+        <div class="exact-reach-card exact-reach-card-1" onclick="window.router && window.router.navigate('services')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('services')}" role="button" tabindex="0" title="Global Expertise">
+          <img src="/assets/reach/reach-card-1-color.png" alt="Global Expertise - Decades of experience in international real estate and investment." class="exact-reach-img" />
         </div>
-        <div class="exact-reach-card exact-reach-card-2" onclick="window.router && window.router.navigate('about')" role="button" tabindex="0" title="Proven Track Record">
-          <img src="/assets/reach/reach-card-2.png" alt="Proven Track Record - Over $18M in property sales across Turkey and the UAE." class="exact-reach-img exact-reach-sketch" />
-          <img src="/assets/reach/reach-card-2-color.png" alt="" class="exact-reach-img exact-reach-color" aria-hidden="true" />
+        <div class="exact-reach-card exact-reach-card-2" onclick="window.router && window.router.navigate('about')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('about')}" role="button" tabindex="0" title="Proven Track Record">
+          <img src="/assets/reach/reach-card-2-color.png" alt="Proven Track Record - Over $18M in property sales across Turkey and the UAE." class="exact-reach-img" />
         </div>
-        <div class="exact-reach-card exact-reach-card-3" onclick="window.router && window.router.navigate('listings')" role="button" tabindex="0" title="Diverse Portfolio">
-          <img src="/assets/reach/reach-card-3-sketch.png" alt="Diverse Portfolio - From luxury residences to social housing and commercial properties." class="exact-reach-img exact-reach-sketch" />
-          <img src="/assets/reach/reach-card-3.png" alt="" class="exact-reach-img exact-reach-color" aria-hidden="true" />
+        <div class="exact-reach-card exact-reach-card-3" onclick="window.router && window.router.navigate('listings')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('listings')}" role="button" tabindex="0" title="Diverse Portfolio">
+          <img src="/assets/reach/reach-card-3.png" alt="Diverse Portfolio - From luxury residences to social housing and commercial properties." class="exact-reach-img" />
         </div>
-        <div class="exact-reach-card exact-reach-card-4" onclick="window.router && window.router.navigate('services')" role="button" tabindex="0" title="Comprehensive Services">
-          <img src="/assets/reach/reach-card-4.png" alt="Comprehensive Services - Off-plan investments construction, refurbishment, and more." class="exact-reach-img exact-reach-sketch" />
-          <img src="/assets/reach/reach-card-4-color.png" alt="" class="exact-reach-img exact-reach-color" aria-hidden="true" />
+        <div class="exact-reach-card exact-reach-card-4" onclick="window.router && window.router.navigate('services')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('services')}" role="button" tabindex="0" title="Comprehensive Services">
+          <img src="/assets/reach/reach-card-4-color.png" alt="Comprehensive Services - Off-plan investments construction, refurbishment, and more." class="exact-reach-img" />
         </div>
-        <div class="exact-reach-card exact-reach-card-5" onclick="window.router && window.router.navigate('services')" role="button" tabindex="0" title="Golden Visa Opportunities">
-          <img src="/assets/reach/reach-card-5.png" alt="Golden Visa Opportunities - Properties suitable for residency programs in Europe." class="exact-reach-img exact-reach-sketch" />
-          <img src="/assets/reach/reach-card-5-color.png" alt="" class="exact-reach-img exact-reach-color" aria-hidden="true" />
+        <div class="exact-reach-card exact-reach-card-5" onclick="window.router && window.router.navigate('services')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('services')}" role="button" tabindex="0" title="Golden Visa Opportunities">
+          <img src="/assets/reach/reach-card-5-color.png" alt="Golden Visa Opportunities - Properties suitable for residency programs in Europe." class="exact-reach-img" />
         </div>
       </div>
     </section>

@@ -29,7 +29,7 @@ export function renderHeader(mountSelector = '#header-root') {
             <!-- Listings Dropdown -->
             <li class="dropdown">
               <a href="#" data-route="listings" class="nav-link dropdown-trigger">
-                Listings <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Listings <svg class="dropdown-chevron" width="9" height="5" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
               <ul class="dropdown-menu">
                 <li class="dropdown-item"><a href="#" data-route="listings">All Listings</a></li>
@@ -44,7 +44,7 @@ export function renderHeader(mountSelector = '#header-root') {
             <!-- Services Dropdown -->
             <li class="dropdown">
               <a href="#" data-route="services" class="nav-link dropdown-trigger">
-                Services <svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Services <svg class="dropdown-chevron" width="9" height="5" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
               <ul class="dropdown-menu">
                 <li class="dropdown-item"><a href="#" data-route="services" data-country="uk">Invest in the UK</a></li>
@@ -63,9 +63,9 @@ export function renderHeader(mountSelector = '#header-root') {
         <div class="header-actions">
           <!-- Search Button -->
           <a href="#listings" data-route="listings" class="header-search-btn" title="Search Properties">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10.5" cy="10.5" r="7.5"></circle>
+              <line x1="16" y1="16" x2="22" y2="22"></line>
             </svg>
           </a>
 
