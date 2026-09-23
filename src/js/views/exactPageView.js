@@ -1,14 +1,14 @@
 const pageAssets = {
-  home: '/assets/Redesign_-_R5-2003_2143.jpg',
-  about: '/assets/01__About_Us-2003_2439.jpg',
-  listings: '/assets/02__Listings-2003_2562.jpg',
-  contact: '/assets/04__Contact_Us-2003_4011.jpg',
+  home: '/assets/Redesign_-_R5-2003_2143.png',
+  about: '/assets/01__About_Us-2003_2439.png',
+  listings: '/assets/02__Listings-2003_2562.png',
+  contact: '/assets/04__Contact_Us-2003_4011.png',
   services: {
-    uk: '/assets/03__Services_-_Invest_In_UK_Real_Estate-2003_3009.jpg',
-    uae: '/assets/03__Services_-_Invest_In_UAE_Real_Estate-2003_4350.jpg',
-    greece: '/assets/03__Services_-_Invest_In_GREECE_Real_Estate-2003_4684.jpg',
-    cyprus: '/assets/03__Services_-_Invest_In_Cyprus_Real_Estate-2003_3677.jpg',
-    turkey: '/assets/03__Services_-_Invest_In_Turkey_Real_Estate-2003_3343.jpg'
+    uk: '/assets/03__Services_-_Invest_In_UK_Real_Estate-2003_3009.png',
+    uae: '/assets/03__Services_-_Invest_In_UAE_Real_Estate-2003_4350.png',
+    greece: '/assets/03__Services_-_Invest_In_GREECE_Real_Estate-2003_4684.png',
+    cyprus: '/assets/03__Services_-_Invest_In_Cyprus_Real_Estate-2003_3677.png',
+    turkey: '/assets/03__Services_-_Invest_In_Turkey_Real_Estate-2003_3343.png'
   }
 };
 
@@ -73,7 +73,7 @@ export function renderExactPageView(page, params = {}) {
   if (isHome) {
     bannerVideoHtml = `
       <div class="exact-banner-hero-container">
-        <video class="exact-banner-video" autoplay loop muted playsinline poster="/assets/Group_1160445096-2003_1809.jpg">
+        <video class="exact-banner-video" autoplay loop muted playsinline poster="/assets/Group_1160445096-2003_1809.png">
           <source src="/assets/0714.mp4" type="video/mp4">
         </video>
         <div class="exact-banner-video-overlay"></div>
@@ -358,19 +358,19 @@ function renderGlobalReachSection() {
       <h2 class="exact-reach-title">Our Global Reach</h2>
       <div class="exact-reach-cards">
         <div class="exact-reach-card exact-reach-card-1" onclick="window.router && window.router.navigate('services')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('services')}" role="button" tabindex="0" title="Global Expertise">
-          <img src="/assets/reach/reach-card-1-color.jpg" alt="Global Expertise - Decades of experience in international real estate and investment." class="exact-reach-img" />
+          <img src="/assets/reach/reach-card-1-color.png" alt="Global Expertise - Decades of experience in international real estate and investment." class="exact-reach-img" />
         </div>
         <div class="exact-reach-card exact-reach-card-2" onclick="window.router && window.router.navigate('about')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('about')}" role="button" tabindex="0" title="Proven Track Record">
-          <img src="/assets/reach/reach-card-2-color.jpg" alt="Proven Track Record - Over $18M in property sales across Turkey and the UAE." class="exact-reach-img" />
+          <img src="/assets/reach/reach-card-2-color.png" alt="Proven Track Record - Over $18M in property sales across Turkey and the UAE." class="exact-reach-img" />
         </div>
         <div class="exact-reach-card exact-reach-card-3" onclick="window.router && window.router.navigate('listings')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('listings')}" role="button" tabindex="0" title="Diverse Portfolio">
-          <img src="/assets/reach/reach-card-3.jpg" alt="Diverse Portfolio - From luxury residences to social housing and commercial properties." class="exact-reach-img" />
+          <img src="/assets/reach/reach-card-3.png" alt="Diverse Portfolio - From luxury residences to social housing and commercial properties." class="exact-reach-img" />
         </div>
         <div class="exact-reach-card exact-reach-card-4" onclick="window.router && window.router.navigate('services')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('services')}" role="button" tabindex="0" title="Comprehensive Services">
-          <img src="/assets/reach/reach-card-4-color.jpg" alt="Comprehensive Services - Off-plan investments construction, refurbishment, and more." class="exact-reach-img" />
+          <img src="/assets/reach/reach-card-4-color.png" alt="Comprehensive Services - Off-plan investments construction, refurbishment, and more." class="exact-reach-img" />
         </div>
         <div class="exact-reach-card exact-reach-card-5" onclick="window.router && window.router.navigate('services')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('services')}" role="button" tabindex="0" title="Golden Visa Opportunities">
-          <img src="/assets/reach/reach-card-5-color.jpg" alt="Golden Visa Opportunities - Properties suitable for residency programs in Europe." class="exact-reach-img" />
+          <img src="/assets/reach/reach-card-5-color.png" alt="Golden Visa Opportunities - Properties suitable for residency programs in Europe." class="exact-reach-img" />
         </div>
       </div>
     </section>
@@ -383,28 +383,28 @@ function renderOurDestinationsSection() {
       <div class="exact-dest-cards-backdrop" aria-hidden="true"></div>
       <div class="exact-dest-cards">
         <div class="exact-dest-card exact-dest-uae" onclick="window.router && window.router.navigate('services', { country: 'uae' })" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('services', { country: 'uae' })}" role="button" tabindex="0" title="UAE Investments">
-          <img src="/assets/destinations/dest-uae-gray.jpg" alt="UAE Real Estate Investments" class="exact-dest-img exact-dest-gray" />
-          <img src="/assets/destinations/dest-uae-color.jpg" alt="" class="exact-dest-img exact-dest-color" aria-hidden="true" />
+          <img src="/assets/destinations/dest-uae-gray.png" alt="UAE Real Estate Investments" class="exact-dest-img exact-dest-gray" />
+          <img src="/assets/destinations/dest-uae-color.png" alt="" class="exact-dest-img exact-dest-color" aria-hidden="true" />
           <span class="exact-dest-label">UAE</span>
         </div>
         <div class="exact-dest-card exact-dest-greece" onclick="window.router && window.router.navigate('services', { country: 'greece' })" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('services', { country: 'greece' })}" role="button" tabindex="0" title="Greece Investments">
-          <img src="/assets/destinations/dest-greece-gray.jpg" alt="Greece Real Estate Investments" class="exact-dest-img exact-dest-gray" />
-          <img src="/assets/destinations/dest-greece-color.jpg" alt="" class="exact-dest-img exact-dest-color" aria-hidden="true" />
+          <img src="/assets/destinations/dest-greece-gray.png" alt="Greece Real Estate Investments" class="exact-dest-img exact-dest-gray" />
+          <img src="/assets/destinations/dest-greece-color.png" alt="" class="exact-dest-img exact-dest-color" aria-hidden="true" />
           <span class="exact-dest-label">GREECE</span>
         </div>
         <div class="exact-dest-card exact-dest-uk" onclick="window.router && window.router.navigate('services', { country: 'uk' })" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('services', { country: 'uk' })}" role="button" tabindex="0" title="UK Investments">
-          <img src="/assets/destinations/dest-uk-gray.jpg" alt="United Kingdom Real Estate Investments" class="exact-dest-img exact-dest-gray" />
-          <img src="/assets/destinations/dest-uk-color.jpg" alt="" class="exact-dest-img exact-dest-color" aria-hidden="true" />
+          <img src="/assets/destinations/dest-uk-gray.png" alt="United Kingdom Real Estate Investments" class="exact-dest-img exact-dest-gray" />
+          <img src="/assets/destinations/dest-uk-color.png" alt="" class="exact-dest-img exact-dest-color" aria-hidden="true" />
           <span class="exact-dest-label">UK</span>
         </div>
         <div class="exact-dest-card exact-dest-turkey" onclick="window.router && window.router.navigate('services', { country: 'turkey' })" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('services', { country: 'turkey' })}" role="button" tabindex="0" title="Turkey Investments">
-          <img src="/assets/destinations/dest-turkey-gray.jpg" alt="Turkey Real Estate Investments" class="exact-dest-img exact-dest-gray" />
-          <img src="/assets/destinations/dest-turkey-color.jpg" alt="" class="exact-dest-img exact-dest-color" aria-hidden="true" />
+          <img src="/assets/destinations/dest-turkey-gray.png" alt="Turkey Real Estate Investments" class="exact-dest-img exact-dest-gray" />
+          <img src="/assets/destinations/dest-turkey-color.png" alt="" class="exact-dest-img exact-dest-color" aria-hidden="true" />
           <span class="exact-dest-label">TURKEY</span>
         </div>
         <div class="exact-dest-card exact-dest-cyprus" onclick="window.router && window.router.navigate('services', { country: 'cyprus' })" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.router&&window.router.navigate('services', { country: 'cyprus' })}" role="button" tabindex="0" title="Cyprus Investments">
-          <img src="/assets/destinations/dest-cyprus-gray.jpg" alt="Cyprus Real Estate Investments" class="exact-dest-img exact-dest-gray" />
-          <img src="/assets/destinations/dest-cyprus-color.jpg" alt="" class="exact-dest-img exact-dest-color" aria-hidden="true" />
+          <img src="/assets/destinations/dest-cyprus-gray.png" alt="Cyprus Real Estate Investments" class="exact-dest-img exact-dest-gray" />
+          <img src="/assets/destinations/dest-cyprus-color.png" alt="" class="exact-dest-img exact-dest-color" aria-hidden="true" />
           <span class="exact-dest-label">CYPRUS</span>
         </div>
       </div>
