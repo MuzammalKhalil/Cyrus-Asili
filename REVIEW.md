@@ -26,3 +26,7 @@ Validation: production build; Chrome browser checks for desktop filters, reload,
 Listings now renders as responsive HTML rather than an overlay on the page image, following the reference listings.html layout. Added multiselect checkbox filters, advanced/mobile filter panel, grid/list view, local search, currency-grouped price sorting and pagination. Counts use the eight existing properties, not the reference's static inventory totals or repeated demo listings. The source reference has non-functional search and static pagination. No remote inventory API was exposed; this implementation uses local data. Newest sorting is omitted until listing dates are available.
 
 The `/listings.html` build entry and existing `#listings` route both open the same connected view. Reference property images are stored locally in `public/assets/listings/`; source: https://asiliholdinguk.web-testlink.com/assets/inner/.
+
+## UK investment service page
+
+The Services menu's UK destination and `/invest-uk.html` now open a responsive UK investment page based on the supplied reference. It includes the hero, market statistics, market table, UK overview, connected UK property cards, consultation action, autoplay testimonials, news link and enquiry footer. Property and consultation actions use the application's existing routes and form flow.

@@ -1,3 +1,4 @@
+import { renderUKServiceView } from './views/ukServiceView.js';
 import '../css/pages/functionality.css';
 import '../css/base.css';
 import '../css/components/header.css';
@@ -107,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     home: (params) => renderHomeView(router),
     about: (params) => renderAboutView(),
     listings: (params) => renderListingsView(params),
-    services: (params) => renderExactPageView('services', params),
+    services: (params) => (!params.country || params.country === 'uk') ? renderUKServiceView() : renderExactPageView('services', params),
     contact: (params) => renderContactView(),
     gallery: () => renderGalleryView(),
     news: () => renderNewsView(),
@@ -124,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // addressable, e.g. #services?country=uae.
   const loadRouteFromHash = () => {
     const hash = window.location.hash.slice(1);
-    const defaultRoute = window.location.pathname.endsWith('/listings.html') ? 'listings' : 'home';
+    const defaultRoute = window.location.pathname.endsWith('/invest-uk.html') ? 'services' : window.location.pathname.endsWith('/listings.html') ? 'listings' : 'home';
     const [route = defaultRoute, query = ''] = (hash || defaultRoute).split('?');
     const searchParams = new URLSearchParams(hash ? query : window.location.search);
     router.navigate(route || 'home', Object.fromEntries(searchParams));
