@@ -30,6 +30,7 @@ export class Router {
     // Render route view
     const mainContainer = document.getElementById('main-content');
     if (mainContainer) {
+      mainContainer.firstElementChild?.disposeTestimonials?.();
       mainContainer.innerHTML = '';
       const viewElement = this.routes[route](params);
       mainContainer.appendChild(viewElement);
@@ -37,15 +38,12 @@ export class Router {
   }
 
   updateUrl(route, params) {
-    const query = route === 'services' && params.country
-      ? `?country=${encodeURIComponent(params.country)}`
-      : route === 'property' && params.id
-        ? `?id=${encodeURIComponent(params.id)}`
-        : '';
+    const search = new URLSearchParams(Object.entries(params).filter(([, value]) => value !== '' && value != null));
+    const query = search.size ? `?${search}` : '';
     const url = `#${route}${query}`;
 
     if (window.location.hash !== url) {
-      window.history.replaceState(null, '', url);
+      window.history.pushState(null, '', url);
     }
   }
 }

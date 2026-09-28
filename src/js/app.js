@@ -1,3 +1,4 @@
+import '../css/pages/functionality.css';
 import '../css/base.css';
 import '../css/components/header.css';
 import '../css/components/hero.css';
@@ -10,6 +11,7 @@ import '../css/pages/contact.css';
 import '../css/pages/exact-design.css';
 import '../css/pages/showcase.css';
 import '../css/pages/inner-pages.css';
+import '../css/pages/responsive.css';
 
 import { Router } from './router.js';
 import { renderHomeView } from './views/homeView.js';
@@ -18,7 +20,7 @@ import { renderListingsView } from './views/listingsView.js';
 import { renderServicesView } from './views/servicesView.js';
 import { renderContactView } from './views/contactView.js';
 import { renderExactPageView } from './views/exactPageView.js';
-import { renderGalleryView, renderNewsView, renderPropertyView } from './views/showcaseViews.js';
+import { renderGalleryView, renderNewsView, renderArticleView, renderPolicyView, renderPropertyView } from './views/showcaseViews.js';
 import { renderHeader, updateActiveHeaderRoute } from './components/header.js';
 import { renderBookingModal, openBookingModal } from './components/bookingModal.js';
 import { renderPropertyModal, openPropertyModal } from './components/propertyModal.js';
@@ -109,6 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
     contact: (params) => renderContactView(),
     gallery: () => renderGalleryView(),
     news: () => renderNewsView(),
+    article: (params) => renderArticleView(params),
+    privacy: () => renderPolicyView('Privacy Policy'),
+    terms: () => renderPolicyView('Terms & Conditions'),
     property: (params) => renderPropertyView(params)
   };
 
@@ -119,11 +124,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // addressable, e.g. #services?country=uae.
   const loadRouteFromHash = () => {
     const hash = window.location.hash.slice(1);
-    const [route = 'home', query = ''] = hash.split('?');
-    const searchParams = new URLSearchParams(query);
-    const country = searchParams.get('country');
-    const id = searchParams.get('id');
-    router.navigate(route || 'home', country ? { country } : id ? { id } : {});
+    const defaultRoute = window.location.pathname.endsWith('/listings.html') ? 'listings' : 'home';
+    const [route = defaultRoute, query = ''] = (hash || defaultRoute).split('?');
+    const searchParams = new URLSearchParams(hash ? query : window.location.search);
+    router.navigate(route || 'home', Object.fromEntries(searchParams));
     updateActiveHeaderRoute(route || 'home');
   };
 
@@ -133,11 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Event listeners for Navigation links
   document.addEventListener('click', (e) => {
     const link = e.target.closest('[data-route]');
-    if (link) {
+    if (link && !e.defaultPrevented && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button === 0) {
       e.preventDefault();
       const route = link.getAttribute('data-route');
       const country = link.getAttribute('data-country');
-      router.navigate(route, country ? { country } : {});
+      const id = link.getAttribute('data-id');
+      router.navigate(route, country ? { country } : id ? { id } : {});
       updateActiveHeaderRoute(route);
     }
   });

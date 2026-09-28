@@ -1,10 +1,11 @@
+import { companyInfo } from '../data.js';
 export function renderBookingModal() {
   const overlay = document.createElement('div');
   overlay.className = 'modal-overlay';
   overlay.id = 'booking-modal';
 
   overlay.innerHTML = `
-    <div class="modal-container animate-fade-in">
+    <div class="modal-container animate-fade-in" role="dialog" aria-modal="true" aria-label="Book a consultation" tabindex="-1">
       <div class="modal-header">
         <div>
           <span class="tag-gold" style="margin-bottom: 0.35rem; display: inline-block;">Private Advisory</span>
@@ -80,30 +81,73 @@ export function renderBookingModal() {
 
   document.body.appendChild(overlay);
 
-  // Event listeners
-  document.getElementById('close-booking-modal').addEventListener('click', () => {
+
+  const form = overlay.querySelector('form');
+  const names = ['firstName','lastName','email','phone','destination','budget','message'];
+  form.querySelectorAll('input, select, textarea').forEach((field, index) => {
+    field.name = names[index];
+    field.id = `booking-${names[index]}`;
+    field.previousElementSibling?.setAttribute('for', field.id);
+  });
+  const status = document.getElementById('booking-success-msg');
+  status.setAttribute('role', 'status');
+  let returnFocus;
+  const close = () => {
     overlay.classList.remove('active');
+    returnFocus?.focus();
+  };
+  overlay.addEventListener('booking-open', () => {
+    returnFocus = document.activeElement;
+    status.style.display = 'none';
+    form.style.display = 'block';
+    form.querySelector('input').focus();
   });
-
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) overlay.classList.remove('active');
+  document.getElementById('close-booking-modal').setAttribute('aria-label', 'Close consultation');
+  document.getElementById('close-booking-modal').addEventListener('click', close);
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+  overlay.addEventListener('keydown', e => {
+    if (e.key === 'Escape') close();
+    if (e.key === 'Tab') {
+      const fields = [...overlay.querySelectorAll('button,input,select,textarea,a[href]')].filter(el => !el.disabled && el.getClientRects().length);
+      const first = fields[0], last = fields.at(-1);
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
   });
-
-  window.handleBookingSubmit = function(form) {
-    form.style.display = 'none';
-    document.getElementById('booking-success-msg').style.display = 'block';
-    setTimeout(() => {
-      overlay.classList.remove('active');
-      setTimeout(() => {
-        form.reset();
-        form.style.display = 'block';
-        document.getElementById('booking-success-msg').style.display = 'none';
-      }, 400);
-    }, 2500);
+  window.handleBookingSubmit = async function(form) {
+    if (!form.reportValidity()) return;
+    const endpoint = import.meta.env.VITE_ENQUIRY_ENDPOINT;
+    const button = form.querySelector('[type="submit"]');
+    const data = new FormData(form);
+    if (window.router?.currentRoute === 'property') data.set('property', window.router.currentParams.id);
+    if (window.router?.currentParams.country) data.set('sourceCountry', window.router.currentParams.country);
+    status.style.display = 'block';
+    if (!endpoint) {
+      const body = [...data].map(([key,value]) => `${key}: ${value}`).join('\n');
+      const link = document.createElement('a');
+      link.href = `mailto:${companyInfo.email}?subject=${encodeURIComponent('ASILI consultation enquiry')}&body=${encodeURIComponent(body)}`;
+      link.textContent = 'Open email draft';
+      status.replaceChildren(document.createTextNode('Send your enquiry using your email app. Your message has not been sent yet. '), link);
+      return;
+    }
+    button.disabled = true;
+    status.textContent = 'Sending your enquiry...';
+    try {
+      const response = await fetch(endpoint, {method:'POST', headers:{Accept:'application/json'}, body:data});
+      if (!response.ok) throw new Error('Submission failed');
+      status.textContent = 'Thank you. Your enquiry has been sent.';
+      form.reset();
+    } catch {
+      status.textContent = `Your enquiry could not be sent. Please try again or email ${companyInfo.email}.`;
+    } finally { button.disabled = false; }
   };
 }
 
 export function openBookingModal() {
   const modal = document.getElementById('booking-modal');
-  if (modal) modal.classList.add('active');
+  if (modal) {
+    document.getElementById('property-modal')?.classList.remove('active');
+    modal.classList.add('active');
+    modal.dispatchEvent(new Event('booking-open'));
+  }
 }

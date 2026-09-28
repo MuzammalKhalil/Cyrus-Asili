@@ -22,7 +22,8 @@ export function renderHeader(mountSelector = '#header-root') {
         </a>
 
         <!-- Main Navigation Menu -->
-        <nav class="site-nav">
+        <button type="button" class="mobile-menu-btn" aria-controls="site-navigation" aria-expanded="false" aria-label="Open navigation">Menu <span aria-hidden="true">&#9776;</span></button>
+        <nav class="site-nav" id="site-navigation" aria-label="Main navigation">
           <ul class="nav-menu">
             <li><a href="#" data-route="about" class="nav-link">About</a></li>
 
@@ -83,35 +84,55 @@ export function renderHeader(mountSelector = '#header-root') {
 
   mountEl.innerHTML = headerHtml;
 
-  mountEl.querySelectorAll('.dropdown').forEach(dropdown => {
+  const header = mountEl.querySelector('.site-header');
+  const menuButton = mountEl.querySelector('.mobile-menu-btn');
+  const closeDropdowns = () => mountEl.querySelectorAll('.dropdown').forEach(item => {
+    item.classList.remove('is-open');
+    item.querySelector('.dropdown-trigger').setAttribute('aria-expanded', 'false');
+  });
+  const closeMenu = () => {
+    header.classList.remove('menu-open');
+    menuButton.setAttribute('aria-expanded', 'false');
+    menuButton.setAttribute('aria-label', 'Open navigation');
+    closeDropdowns();
+  };
+  menuButton.addEventListener('click', () => {
+    const open = header.classList.toggle('menu-open');
+    menuButton.setAttribute('aria-expanded', String(open));
+    menuButton.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  });
+  mountEl.querySelectorAll('a[data-route]').forEach(link => {
+    link.href = `#${link.dataset.route}${link.dataset.country ? '?country=' + link.dataset.country : ''}`;
+    if (!link.classList.contains('dropdown-trigger')) link.addEventListener('click', closeMenu);
+  });
+  mountEl.querySelectorAll('.dropdown').forEach((dropdown, index) => {
     const toggle = dropdown.querySelector('.dropdown-trigger');
     const menu = dropdown.querySelector('.dropdown-menu');
-
-    if (!toggle || !menu) return;
-
-    toggle.addEventListener('click', (event) => {
+    menu.id = `header-submenu-${index}`;
+    toggle.setAttribute('aria-controls', menu.id);
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.addEventListener('click', event => {
       event.preventDefault();
-      const isOpen = dropdown.classList.contains('is-open');
-
-      document.querySelectorAll('.dropdown').forEach(item => {
-        item.classList.remove('is-open');
-      });
-
-      if (!isOpen) {
-        dropdown.classList.add('is-open');
-      }
+      const open = !dropdown.classList.contains('is-open');
+      closeDropdowns();
+      dropdown.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
     });
-
     dropdown.addEventListener('mouseleave', () => {
-      dropdown.classList.remove('is-open');
-    });
-
-    document.addEventListener('click', (event) => {
-      if (!dropdown.contains(event.target)) {
-        dropdown.classList.remove('is-open');
-      }
+      if (matchMedia('(hover: hover) and (min-width: 1101px)').matches) closeDropdowns();
     });
   });
+  document.addEventListener('click', event => {
+    if (!header.contains(event.target)) closeMenu();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return;
+    const open = header.classList.contains('menu-open');
+    closeMenu();
+    if (open) menuButton.focus();
+  });
+  matchMedia('(max-width: 1100px)').addEventListener('change', closeMenu);
+
 }
 
 export function updateActiveHeaderRoute(currentRoute = 'home') {

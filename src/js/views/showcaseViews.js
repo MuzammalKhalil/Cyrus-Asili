@@ -20,15 +20,39 @@ export function renderGalleryView() {
 export function renderNewsView() {
   const container = document.createElement('div');
   container.className = 'showcase-page';
-  container.innerHTML = `${renderHero('Journal', 'Insights for global investors, curated by ASILI Holding.', stories[0].image)}<section class="showcase-section"><div class="container"><div class="showcase-heading"><span>THE ASILI JOURNAL</span><h1>News & Insights</h1><p>Market intelligence and practical guidance for international property decisions.</p></div><div class="journal-grid">${stories.map((story, index) => `<article class="journal-card ${index === 0 ? 'featured' : ''}"><img src="${story.image}" alt="" /><div><span>${story.category}</span><p class="journal-date">${story.date}</p><h2>${story.title}</h2><a href="#" onclick="event.preventDefault(); window.openBookingModal()">Read insight <b>→</b></a></div></article>`).join('')}</div></div></section>`;
+  container.innerHTML = `${renderHero('Journal', 'Insights for global investors, curated by ASILI Holding.', stories[0].image)}<section class="showcase-section"><div class="container"><div class="showcase-heading"><span>THE ASILI JOURNAL</span><h1>News & Insights</h1><p>Market intelligence and practical guidance for international property decisions.</p></div><div class="journal-grid">${stories.map((story, index) => `<article class="journal-card ${index === 0 ? 'featured' : ''}"><img src="${story.image}" alt="" /><div><span>${story.category}</span><p class="journal-date">${story.date}</p><h2>${story.title}</h2><a href="#article?id=${index + 1}" data-route="article" data-id="${index + 1}">Read insight <b>→</b></a></div></article>`).join('')}</div></div></section>`;
   return container;
 }
 
 export function renderPropertyView(params = {}) {
-  const property = properties.find(item => item.id === params.id) || properties[0];
+  const property = properties.find(item => item.id === params.id);
+  if (!property) return renderUnavailable('Property unavailable', 'listings', 'Browse properties');
   const related = properties.filter(item => item.country === property.country && item.id !== property.id).slice(0, 3);
   const container = document.createElement('div');
   container.className = 'showcase-page property-page';
-  container.innerHTML = `<section class="property-detail-hero"><div class="property-detail-image"><img src="${property.image}" alt="${property.title}" /></div><div class="property-detail-copy"><button class="back-link" onclick="window.router.navigate('listings')">← All properties</button><span>${property.badge} · ${property.country.toUpperCase()}</span><h1>${property.title}</h1><p class="property-place">${property.location}</p><p class="property-price-detail">${property.price}</p><div class="property-specs"><div><b>${property.bedrooms}</b><small>Bedrooms</small></div><div><b>${property.bathrooms}</b><small>Bathrooms</small></div><div><b>${property.area}</b><small>Internal area</small></div></div><button class="inquire-button" onclick="window.openBookingModal()">Enquire about this property <b>→</b></button></div></section><section class="property-detail-body"><div><span>THE RESIDENCE</span><h2>Designed for a refined way of living.</h2><p>${property.description}</p></div><aside><span>INVESTMENT HIGHLIGHTS</span><ul><li>${property.type} residence</li>${property.goldenVisa ? '<li>Golden Visa eligible</li>' : ''}${property.offPlan ? '<li>Off-plan opportunity</li>' : ''}${property.newBuild ? '<li>New-build assurance</li>' : ''}<li>Private ASILI advisory</li></ul></aside></section>${related.length ? `<section class="showcase-section related-properties"><div class="container"><div class="showcase-heading compact"><span>MORE IN ${property.country.toUpperCase()}</span><h2>Related opportunities</h2></div><div class="gallery-grid">${related.map(item => `<article class="gallery-card" onclick="window.router.navigate('property', { id: '${item.id}' })"><img src="${item.image}" alt="${item.title}" /><div class="gallery-card-overlay"><h2>${item.title}</h2><strong>${item.price}</strong></div></article>`).join('')}</div></div></section>` : ''}`;
+  container.innerHTML = `<section class="property-detail-hero"><div class="property-detail-image"><img src="/assets/listings/${property.id}.jpg" alt="${property.title}" /></div><div class="property-detail-copy"><button class="back-link" onclick="window.router.navigate('listings')">← All properties</button><span>${property.badge} · ${property.country.toUpperCase()}</span><h1>${property.title}</h1><p class="property-place">${property.location}</p><p class="property-price-detail">${property.price}</p><div class="property-specs"><div><b>${property.bedrooms}</b><small>Bedrooms</small></div><div><b>${property.bathrooms}</b><small>Bathrooms</small></div><div><b>${property.area}</b><small>Internal area</small></div></div><button class="inquire-button" onclick="window.openBookingModal()">Enquire about this property <b>→</b></button></div></section><section class="property-detail-body"><div><span>THE RESIDENCE</span><h2>Designed for a refined way of living.</h2><p>${property.description}</p></div><aside><span>INVESTMENT HIGHLIGHTS</span><ul><li>${property.type} residence</li>${property.goldenVisa ? '<li>Golden Visa eligible</li>' : ''}${property.offPlan ? '<li>Off-plan opportunity</li>' : ''}${property.newBuild ? '<li>New-build assurance</li>' : ''}<li>Private ASILI advisory</li></ul></aside></section>${related.length ? `<section class="showcase-section related-properties"><div class="container"><div class="showcase-heading compact"><span>MORE IN ${property.country.toUpperCase()}</span><h2>Related opportunities</h2></div><div class="gallery-grid">${related.map(item => `<article class="gallery-card" onclick="window.router.navigate('property', { id: '${item.id}' })"><img src="${item.image}" alt="${item.title}" /><div class="gallery-card-overlay"><h2>${item.title}</h2><strong>${item.price}</strong></div></article>`).join('')}</div></div></section>` : ''}`;
+  return container;
+}
+
+function renderUnavailable(title, route, label) {
+  const container = document.createElement('div');
+  container.className = 'showcase-page';
+  container.innerHTML = `<section class="showcase-section container"><h1>${title}</h1><a href="#${route}" data-route="${route}">${label}</a></section>`;
+  return container;
+}
+
+export function renderArticleView(params = {}) {
+  const story = stories[Number(params.id) - 1];
+  if (!story) return renderUnavailable('Article unavailable', 'news', 'Back to the journal');
+  const container = document.createElement('div');
+  container.className = 'showcase-page';
+  container.innerHTML = `${renderHero(story.category, story.title, story.image)}<section class="showcase-section container"><a href="#news" data-route="news">Back to the journal</a><p>${story.date}</p><p>The full article is not available yet. Contact the ASILI team for information about this topic.</p><button class="inquire-button" onclick="window.openBookingModal()">Speak to our team</button></section>`;
+  return container;
+}
+
+export function renderPolicyView(title) {
+  const container = document.createElement('div');
+  container.className = 'showcase-page';
+  container.innerHTML = `<section class="showcase-section container"><h1>${title}</h1><p>This document is not currently available on this website. Please contact ASILI Holding for a copy before submitting an enquiry.</p><a href="mailto:info@asili.uk">Request a copy: info@asili.uk</a><p><a href="#home" data-route="home">Back to home</a></p></section>`;
   return container;
 }

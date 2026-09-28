@@ -1,3 +1,7 @@
+import { mountTestimonialSlider } from '../components/testimonialSlider.js';
+import { mountArtworkFooter } from '../components/artworkFooter.js';
+import { renderCompactSections } from './compactSections.js';
+
 const pageAssets = {
   home: '/assets/Redesign_-_R5-2003_2143.png',
   about: '/assets/01__About_Us-2003_2439.png',
@@ -73,7 +77,7 @@ export function renderExactPageView(page, params = {}) {
   if (isHome) {
     bannerVideoHtml = `
       <div class="exact-banner-hero-container">
-        <video class="exact-banner-video" autoplay loop muted playsinline poster="/assets/Group_1160445096-2003_1809.png">
+        <video class="exact-banner-video" autoplay loop muted playsinline poster="/assets/image_55-2003_2441.png">
           <source src="/assets/0714.mp4" type="video/mp4">
         </video>
         <div class="exact-banner-video-overlay"></div>
@@ -96,7 +100,7 @@ export function renderExactPageView(page, params = {}) {
     if (bannerInfo) {
       bannerVideoHtml = `
         <div class="exact-banner-hero-container exact-banner-inner">
-          <video class="exact-banner-video" autoplay loop muted playsinline>
+          <video class="exact-banner-video" autoplay loop muted playsinline poster="/assets/image_55-2003_2441.png">
             <source src="/assets/0714.mp4" type="video/mp4">
           </video>
           <div class="exact-banner-video-overlay exact-banner-inner-overlay"></div>
@@ -118,15 +122,25 @@ export function renderExactPageView(page, params = {}) {
 
   container.innerHTML = `
     <div class="exact-page-stage">
-      <img class="exact-page-image" src="${src}" alt="ASILI Holding ${page} page design" />
+      <picture class="exact-desktop-artwork">
+        <source media="(max-width: 1100px)" srcset="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+        <img class="exact-page-image" src="${src}" alt="ASILI Holding ${page} page design" />
+      </picture>
       ${bannerVideoHtml}
       ${searchBarHtml}
       ${reachSectionHtml}
       ${destinationsSectionHtml}
       ${partnersSliderHtml}
       ${interactiveButtonsHtml}
+      ${renderCompactSections(page, params)}
     </div>
   `;
+
+  mountArtworkFooter(container);
+  mountTestimonialSlider(container, page);
+  container.querySelectorAll('.exact-search-select, .exact-search-input').forEach(field => {
+    field.setAttribute('aria-label', field.options?.[0]?.text || field.placeholder);
+  });
 
   // Initialize interactive sliders on pages with partners (Home and About Us)
   if (hasPartners) {
@@ -176,7 +190,7 @@ function renderInteractiveButtons(page, params = {}) {
       </a>
 
       <!-- Home: Book A Consultation (Why Choose section - Transparent) -> links to #contact / modal -->
-      <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-transparent exact-home-btn-why-consult" onclick="if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
+      <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-transparent exact-home-btn-why-consult"  title="Book A Consultation">
         <span>Book A Consultation</span>
         ${circleIconSvg}
       </a>
@@ -201,30 +215,6 @@ function renderInteractiveButtons(page, params = {}) {
       <a href="#gallery" data-route="gallery" class="exact-footer-link" style="top: 94.35%; left: 32.5%; width: 10%; height: 0.55%;" title="Gallery"></a>
       <a href="#news" data-route="news" class="exact-footer-link" style="top: 94.90%; left: 32.5%; width: 12%; height: 0.55%;" title="News & Blogs"></a>
       <a href="#contact" data-route="contact" class="exact-footer-link" style="top: 92.70%; left: 45.0%; width: 10%; height: 0.55%;" title="Contact Us"></a>
-    `;
-  }
-
-  if (page === 'listings') {
-    return `
-      <!-- Listings: Book A Consultation under Can't find the right fit? -->
-      <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-black exact-listings-btn-consult" onclick="if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
-        <span>Book A Consultation</span>
-        ${circleIconSvg}
-      </a>
-
-      <!-- Listings Highlights Filter Buttons -->
-      <button type="button" class="exact-interactive-btn exact-btn-black" style="top: 61.2%; left: 12.97%; width: 9.8%; height: 1.1%; font-size: 13px;" onclick="window.router.navigate('listings')" title="Featured Listings">
-        Featured
-      </button>
-      <button type="button" class="exact-interactive-btn exact-btn-transparent" style="top: 61.2%; left: 23.2%; width: 14.2%; height: 1.1%; font-size: 13px;" onclick="window.router.navigate('listings')" title="Golden Visa Eligible">
-        Golden Visa Eligible
-      </button>
-      <button type="button" class="exact-interactive-btn exact-btn-transparent" style="top: 62.6%; left: 12.97%; width: 8.2%; height: 1.1%; font-size: 13px;" onclick="window.router.navigate('listings')" title="Off-Plan">
-        Off-Plan
-      </button>
-      <button type="button" class="exact-interactive-btn exact-btn-transparent" style="top: 62.6%; left: 21.6%; width: 9.6%; height: 1.1%; font-size: 13px;" onclick="window.router.navigate('listings')" title="New Build">
-        New Build
-      </button>
     `;
   }
 
@@ -256,7 +246,7 @@ function renderInteractiveButtons(page, params = {}) {
       </a>
 
       <!-- Services: Book A Consultation -> links to #contact -->
-      <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-black exact-services-btn-consult" onclick="if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
+      <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-black exact-services-btn-consult"  title="Book A Consultation">
         <span>Book A Consultation</span>
         ${circleIconSvg}
       </a>
@@ -266,7 +256,7 @@ function renderInteractiveButtons(page, params = {}) {
   if (page === 'contact') {
     return `
       <!-- Contact: Book A Consultation -> links to #contact -->
-      <a href="#contact" data-route="contact" class="exact-interactive-btn exact-btn-black exact-services-btn-consult" onclick="if(window.router){window.router.navigate('contact');}" title="Book A Consultation">
+      <a href="#contact" onclick="event.preventDefault();window.openBookingModal()" class="exact-interactive-btn exact-btn-black exact-services-btn-consult"  title="Book A Consultation">
         <span>Book A Consultation</span>
         ${circleIconSvg}
       </a>
@@ -277,11 +267,12 @@ function renderInteractiveButtons(page, params = {}) {
 }
 
 function renderSearchBarHtml(page, params = {}) {
-  const selectedLocation = params.location || '';
+  const escapeAttribute = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
+  const selectedLocation = params.location || ({uk:'United Kingdom',uae:'UAE',greece:'Greece',cyprus:'Cyprus',turkey:'Turkey'}[params.country]) || '';
   const selectedType = params.type || '';
   const selectedBedrooms = params.bedrooms || '';
-  const enteredPostcode = params.postcode || '';
-  const enteredReference = params.reference || '';
+  const enteredPostcode = escapeAttribute(params.postcode || '');
+  const enteredReference = escapeAttribute(params.reference || '');
 
   const isLocationSelected = Boolean(selectedLocation);
   const isTypeSelected = Boolean(selectedType);
@@ -337,7 +328,7 @@ function renderSearchBarHtml(page, params = {}) {
 
 window.handleExactSearch = function (event) {
   if (event) event.preventDefault();
-  const form = document.querySelector('.exact-search-form');
+  const form = event?.currentTarget || document.querySelector('.exact-search-form');
   if (!form) return;
   const location = form.location ? form.location.value : '';
   const type = form.type ? form.type.value : '';
@@ -346,7 +337,7 @@ window.handleExactSearch = function (event) {
   const reference = form.reference ? form.reference.value : '';
 
   if (window.router) {
-    window.router.navigate('listings', { location, type, bedrooms, postcode, reference });
+    window.router.navigate('listings', { location, type, bedrooms, postcode: postcode.trim(), reference: reference.trim() });
   }
 };
 
